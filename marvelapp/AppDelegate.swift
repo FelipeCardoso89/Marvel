@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  marvelapp
 //
-//  Created by Henrique Cardoso on 05/04/2019.
+//  Created by Felipe Antonio Cardoso on 05/04/2019.
 //  Copyright © 2019 Felipe Antonio Cardoso. All rights reserved.
 //
 
@@ -11,12 +11,20 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    private let appCoordinator = AppCoordinator()
+    
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = .white
+        window?.rootViewController = appCoordinator.rootViewController
+        window?.makeKeyAndVisible()
+        
+        appCoordinator.start()
+        
         return true
     }
 

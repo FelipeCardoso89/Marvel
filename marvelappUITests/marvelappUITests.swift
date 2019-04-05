@@ -2,7 +2,7 @@
 //  marvelappUITests.swift
 //  marvelappUITests
 //
-//  Created by Henrique Cardoso on 05/04/2019.
+//  Created by Felipe Antonio Cardoso on 05/04/2019.
 //  Copyright © 2019 Felipe Antonio Cardoso. All rights reserved.
 //
 
