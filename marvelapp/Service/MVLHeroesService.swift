@@ -72,4 +72,5 @@ class MVLCharacterService {
 //
 //        task.resume()
     }
+
 }

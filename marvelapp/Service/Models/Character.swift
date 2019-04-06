@@ -13,13 +13,13 @@ struct Character {
     let id: Int?
     let name: String?
     let description: String?
-    let image: Image?
+    let thumbnail: Image?
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case description
-        case image
+        case thumbnail
     }
 }
 
@@ -29,7 +29,7 @@ extension Character: Decodable {
         self.id = try container.decodeIfPresent(Int.self, forKey: .id)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.image = try container.decodeIfPresent(Image.self, forKey: .image)
+        self.thumbnail = try container.decodeIfPresent(Image.self, forKey: .thumbnail)
     }
 }
 
@@ -39,6 +39,6 @@ extension Character: Encodable {
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(description, forKey: .description)
-        try container.encodeIfPresent(image, forKey: .image)
+        try container.encodeIfPresent(thumbnail, forKey: .thumbnail)
     }
 }

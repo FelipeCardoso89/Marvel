@@ -12,3 +12,11 @@ struct CatalogItemCollectionViewCellDTO {
     let title: String?
     let imageURL: URL?
 }
+
+extension CatalogItemCollectionViewCellDTO {
+    init(character: Character) {
+        self.title = character.name
+        self.imageURL = character.thumbnail?.url
+    }
+}
+

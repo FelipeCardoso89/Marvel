@@ -27,4 +27,6 @@ class MarvelAPI {
         self.apiKey = apiKey
     }
     
+    func
+    
 }

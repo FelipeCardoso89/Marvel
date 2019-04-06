@@ -9,7 +9,8 @@
 import Foundation
 
 protocol CharacterCatalogViewModelDelegate: class {
-    func didLoadCharacteres()
+    func didFinsihLoad()
+    func didFinsihLoad(with error: NSError)
 }
 
 class CharacterCatalogViewModel {
@@ -20,8 +21,12 @@ class CharacterCatalogViewModel {
     
     weak var delegate: CharacterCatalogViewModelDelegate?
     
+    private var characters: [Character] {
+        return characterData?.data?.results ?? []
+    }
+    
     var numberOfCharacters: Int {
-        return (characterData?.data?.results ?? [Character]()).count
+        return characters.count
     }
     
     init(logic: CharacterCatalogLogic) {
@@ -34,38 +39,14 @@ class CharacterCatalogViewModel {
             switch result {
             case let .success(characters):
                 self.characterData = characters
-                self.delegate?.didLoadCharacteres()
+                self.delegate?.didFinsihLoad()
             case let .failure(error):
-                print("\(error)")
+                self.delegate?.didFinsihLoad(with: error)
             }
         }
     }
     
-    func catalogItemDTO(for indexPath: IndexPath) -> CatalogItemCollectionViewCellDTO? {
-        
-        guard let character = character(at: indexPath) else {
-            return nil
-        }
-        
-        return CatalogItemCollectionViewCellDTO(character: character)
-    }
-    
     func character(at indexPath: IndexPath) -> Character? {
-        
-        guard let character = characterData?.data?.results else {
-            return nil
-        }
-        
-        return character[indexPath.row]
+        return (indexPath.row < characters.count) ? characters[indexPath.row] : nil
     }
-}
-
-
-private extension CatalogItemCollectionViewCellDTO {
-    
-    init(character: Character) {
-        self.title = character.name
-        self.imageURL = nil
-    }
-    
 }

@@ -15,9 +15,12 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 160.0, height: 200.0)
+        layout.minimumInteritemSpacing = 16.0
+        layout.minimumLineSpacing = 16.0
+        layout.sectionInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
         
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -62,9 +65,15 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
         if let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath) {
-            cell.configure(with: viewModel.catalogItemDTO(for: indexPath))
+            
+            if let character = viewModel.character(at: indexPath)  {
+                cell.configure(with: CatalogItemCollectionViewCellDTO(character: character))
+            }
+
             return cell
+            
         } else {
             return  UICollectionViewCell(frame: CGRect.zero)
         }
@@ -72,11 +81,13 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
 }
 
 extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
-    
-    func didLoadCharacteres() {
+    func didFinsihLoad() {
         DispatchQueue.main.async {
             self.catalogCollectionView.reloadData()
         }
     }
     
+    func didFinsihLoad(with error: NSError) {
+        print("\(error.localizedDescription)")
+    }
 }
