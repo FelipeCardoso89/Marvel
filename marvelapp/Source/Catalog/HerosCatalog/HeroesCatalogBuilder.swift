@@ -1,5 +1,5 @@
 //
-//  HeroesCatalogBuilder.swift
+//  CharacterCatalogBuilder.swift
 //  marvelapp
 //
 //  Created by Felipe Antonio Cardoso on 05/04/19.
@@ -8,18 +8,18 @@
 
 import Foundation
 
-class HeroesCatalogBuilder {
+class CharacterCatalogBuilder {
     
-    private weak var router: HeroesCatalogRouterable?
+    private weak var router: CharacterCatalogRouterable?
     
-    init(router: HeroesCatalogRouterable) {
+    init(router: CharacterCatalogRouterable) {
         self.router = router
     }
     
-    func build() -> HeroesCatalogViewController {
-        let logic = HeroesCatalogLogic(router: router)
-        let viewModel = HeroesCatalogViewModel(logic: logic)
-        return HeroesCatalogViewController(viewModel: viewModel)
+    func build() -> CharacterCatalogViewController {
+        let logic = CharacterCatalogLogic(router: router)
+        let viewModel = CharacterCatalogViewModel(logic: logic)
+        return CharacterCatalogViewController(viewModel: viewModel)
     }
     
 }

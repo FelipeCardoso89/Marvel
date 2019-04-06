@@ -1,5 +1,5 @@
 //
-//  HeroesCatalogLogic.swift
+//  CharacterCatalogLogic.swift
 //  marvelapp
 //
 //  Created by Felipe Antonio Cardoso on 05/04/19.
@@ -8,29 +8,34 @@
 
 import Foundation
 
-protocol HeroesCatalogRouterable: class {
+protocol CharacterCatalogRouterable: class {
     
 }
 
-protocol HeroesCatalogServable: class {
-    
+protocol CharacterCatalogServable: class {
+    func characters(completion: @escaping CharacterDataWrapperCompletionResult)
 }
 
-class HeroesCatalogLogic {
+class CharacterCatalogLogic {
     
-    private weak var router: HeroesCatalogRouterable?
-    private let service: HeroesCatalogServable
+    private weak var router: CharacterCatalogRouterable?
+    private let service: CharacterCatalogServable
     
-    init(service: HeroesCatalogServable, router: HeroesCatalogRouterable?) {
+    init(service: CharacterCatalogServable, router: CharacterCatalogRouterable?) {
         self.service = service
         self.router = router
     }
     
-    convenience init(router: HeroesCatalogRouterable?) {
-        self.init(service: MarvelAPI.shared.heroesService, router: router)
+    convenience init(router: CharacterCatalogRouterable?) {
+        self.init(service: MarvelAPI.shared.characterService, router: router)
     }
+    
+    func characters(completion: @escaping CharacterDataWrapperCompletionResult) {
+        service.characters(completion: completion)
+    }
+    
 }
 
-extension MVLHeroesService: HeroesCatalogServable {
+extension MVLCharacterService: CharacterCatalogServable {
     
 }

@@ -10,10 +10,21 @@ import Foundation
 
 class MarvelAPI {
     
-    static let shared = MarvelAPI()
+    static let shared = MarvelAPI(
+        baseURL: URL(string: "https://gateway.marvel.com:443")!,
+        apiKey: "1951bc8fc24c16592930f688c6df1581"
+    )
 
-    var heroesService: MVLHeroesService {
-        return MVLHeroesService.shared
+    lazy var characterService: MVLCharacterService = {
+        return MVLCharacterService(baseURL: baseURL, apiKey: apiKey)
+    }()
+    
+    private let baseURL: URL
+    private let apiKey: String
+    
+    init(baseURL: URL, apiKey: String) {
+        self.baseURL = baseURL
+        self.apiKey = apiKey
     }
     
 }

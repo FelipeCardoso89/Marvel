@@ -6,6 +6,8 @@ target 'marvelapp' do
   use_frameworks!
 
   # Pods for marvelapp
+  pod 'PureLayout'
+  pod 'RxSwift', '~> 4.0'
 
   target 'marvelappTests' do
     inherit! :search_paths

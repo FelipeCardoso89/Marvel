@@ -10,16 +10,16 @@ import Foundation
 
 class CatalogCoordinator: NavigationCoordinator {
     
-    private lazy var heroesCatalogBuilder: HeroesCatalogBuilder = {
-        return HeroesCatalogBuilder(router: self)
+    private lazy var characterCatalogBuilder: CharacterCatalogBuilder = {
+        return CharacterCatalogBuilder(router: self)
     }()
     
     func start() {
-        viewController.setViewControllers([heroesCatalogBuilder.build()], animated: true)
+        viewController.setViewControllers([characterCatalogBuilder.build()], animated: true)
     }
     
 }
 
-extension CatalogCoordinator: HeroesCatalogRouterable {
+extension CatalogCoordinator: CharacterCatalogRouterable {
     
 }

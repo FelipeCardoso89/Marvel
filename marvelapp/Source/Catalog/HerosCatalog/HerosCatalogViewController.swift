@@ -1,5 +1,5 @@
 //
-//  HeroesCatalogViewController.swift
+//  CharacterCatalogViewController.swift
 //  marvelapp
 //
 //  Created by Felipe Antonio Cardoso on 05/04/19.
@@ -7,12 +7,25 @@
 //
 
 import UIKit
+import PureLayout
 
-class HeroesCatalogViewController: ViewController<UIView> {
+class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    private let viewModel: HeroesCatalogViewModel
+    private lazy var catalogCollectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 160.0, height: 200.0)
+        
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        return collectionView
+    }()
     
-    init(viewModel: HeroesCatalogViewModel) {
+    private let viewModel: CharacterCatalogViewModel
+    
+    init(viewModel: CharacterCatalogViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,6 +36,47 @@ class HeroesCatalogViewController: ViewController<UIView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
+        registerCells()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.loadCharacters()
+    }
+    
+    override func buildViewHierarchy() {
+        view.addSubview(catalogCollectionView)
     }
 
+    override func setupConstraints() {
+        catalogCollectionView.autoPinEdgesToSuperviewEdges()
+    }
+    
+    private func registerCells() {
+        catalogCollectionView.registerCell(of: CatalogItemCollectionViewCell.self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfCharacters
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath) {
+            cell.configure(with: viewModel.catalogItemDTO(for: indexPath))
+            return cell
+        } else {
+            return  UICollectionViewCell(frame: CGRect.zero)
+        }
+    }
+}
+
+extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
+    
+    func didLoadCharacteres() {
+        DispatchQueue.main.async {
+            self.catalogCollectionView.reloadData()
+        }
+    }
+    
 }
