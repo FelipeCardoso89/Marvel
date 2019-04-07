@@ -53,6 +53,7 @@
 		155A2212225A5985006CF035 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 155A2210225A5985006CF035 /* MessageTableViewCell.xib */; };
 		155A2214225A5991006CF035 /* ActionTableViewCellDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A2213225A5991006CF035 /* ActionTableViewCellDTO.swift */; };
 		155A2216225A59A0006CF035 /* MessageTableViewCellDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A2215225A59A0006CF035 /* MessageTableViewCellDTO.swift */; };
+		155A221B225AA5C7006CF035 /* md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A221A225AA5C7006CF035 /* md5.swift */; };
 		1569AAD422595F79004296D0 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1569AAD322595F79004296D0 /* UIImageView+Extensions.swift */; };
 		15CB8A282258304700FE6A29 /* CharacterMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 15CB8A272258304700FE6A29 /* CharacterMock.json */; };
 		15CB8A2A225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB8A29225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift */; };
@@ -133,6 +134,7 @@
 		155A2210225A5985006CF035 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 		155A2213225A5991006CF035 /* ActionTableViewCellDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTableViewCellDTO.swift; sourceTree = "<group>"; };
 		155A2215225A59A0006CF035 /* MessageTableViewCellDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCellDTO.swift; sourceTree = "<group>"; };
+		155A221A225AA5C7006CF035 /* md5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = md5.swift; sourceTree = "<group>"; };
 		1569AAD322595F79004296D0 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		15CB8A272258304700FE6A29 /* CharacterMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CharacterMock.json; sourceTree = "<group>"; };
 		15CB8A29225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogItemCollectionViewCellDTO.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		152375362257F3160049E36C /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				155A2219225AA5B7006CF035 /* Utils */,
 				152375372257F34F0049E36C /* MarvelAPI.swift */,
 				1523753B2257F3DD0049E36C /* MVLHeroesService.swift */,
 				15CB8A262258302D00FE6A29 /* Mocks */,
@@ -340,6 +343,14 @@
 				155A2210225A5985006CF035 /* MessageTableViewCell.xib */,
 			);
 			path = MessageCell;
+			sourceTree = "<group>";
+		};
+		155A2219225AA5B7006CF035 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				155A221A225AA5C7006CF035 /* md5.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		1569AAD222595F63004296D0 /* Extensions */ = {
@@ -682,6 +693,7 @@
 				1523751D2257E53C0049E36C /* Reusable.swift in Sources */,
 				1523754C225823A60049E36C /* CharacterDataContainer.swift in Sources */,
 				155A21E122599DC2006CF035 /* ComicSummary.swift in Sources */,
+				155A221B225AA5C7006CF035 /* md5.swift in Sources */,
 				155A21DD2259962F006CF035 /* CharacterDetailSection.swift in Sources */,
 				152375312257EECB0049E36C /* CharacterCatalogViewModel.swift in Sources */,
 				155A21EF2259ABC7006CF035 /* StoryList.swift in Sources */,

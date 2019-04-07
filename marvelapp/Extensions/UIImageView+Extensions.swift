@@ -16,6 +16,8 @@ extension UIImageView {
     
     func loadImage(from url: URL, completion: ((Error?)-> Void)? = nil) {
         
+        self.image = nil
+        
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
             DispatchQueue.main.async {
                 self.image = cachedImage
@@ -23,8 +25,6 @@ extension UIImageView {
             }
             return
         }
-        
-        self.image = nil
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
@@ -48,6 +48,7 @@ extension UIImageView {
                 
                 imageCache.setObject(downloadedIamge, forKey: url.absoluteString as NSString)
                 
+                self.image = nil
                 self.image = downloadedIamge
                 completion?(nil)
             }

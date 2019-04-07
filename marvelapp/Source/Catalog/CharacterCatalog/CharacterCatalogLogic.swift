@@ -13,7 +13,7 @@ protocol CharacterCatalogRouterable: class {
 }
 
 protocol CharacterCatalogServable: class {
-    func characters(at page: Int, completion: @escaping CharacterDataWrapperCompletionResult)
+    func character(_ name: String?, page: Int, completion: @escaping CharacterDataWrapperCompletionResult)
 }
 
 class CharacterCatalogLogic {
@@ -30,14 +30,14 @@ class CharacterCatalogLogic {
         self.init(service: MarvelAPI.shared.characterService, router: router)
     }
     
-    func characters(at page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {
-        service.characters(at: page, completion: completion)
+    func character(with name: String?, at page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {
+        service.character(name, page: page, completion: completion)
     }
     
     func showDetail(of character: Character) {
         router?.detail(for: character)
     }
-    
+
 }
 
 extension MVLCharacterService: CharacterCatalogServable {

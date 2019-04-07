@@ -22,10 +22,17 @@ class CharacterCatalogViewModel {
     private var characters = [Character]()
     
     private var characterData: CharacterDataWrapper? {
-        didSet (newValue) { characters.append(contentsOf: characterData?.data?.results ?? []) }
+        didSet (newValue) {
+            if currentPage >= 1 {
+                characters.append(contentsOf: characterData?.data?.results ?? [])
+            } else {
+                characters = characterData?.data?.results ?? []
+            }
+        }
     }
     
     private var currentPage: Int = -1
+    private var currentName: String?
     
     var numberOfCharacters: Int {
         return characters.count
@@ -40,11 +47,21 @@ class CharacterCatalogViewModel {
     }
     
     func loadCharacters() {
+        
+        guard currentPage == -1 else {
+            return
+        }
+        
         loadCharacters(at: 0)
     }
     
     func loadNextPage() {
-        loadCharacters(at: currentPage + 1)
+        loadCharacters(name: currentName, at: (currentPage + 1))
+    }
+    
+    func reset() {
+        currentPage = -1
+        currentName = nil
     }
     
     func character(at indexPath: IndexPath) -> Character? {
@@ -60,16 +77,22 @@ class CharacterCatalogViewModel {
         logic.showDetail(of: character)
     }
     
-    private func loadCharacters(at page: Int) {
+    func searchCharacter(with name: String) {
+        reset()
+        loadCharacters(name: name, at: 0)
+    }
+    
+    private func loadCharacters(name: String? = nil, at page: Int) {
         
         guard currentPage != page else {
             return
         }
         
-        logic.characters(at: page) { (result) in
+        logic.character(with: name, at: page) { (result) in
             switch result {
             case let .success(characterData):
                 self.currentPage = page
+                self.currentName = name
                 self.characterData = characterData
                 self.delegate?.didFinsihLoad()
             case let .failure(error):

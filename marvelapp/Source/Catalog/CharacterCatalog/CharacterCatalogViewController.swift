@@ -12,6 +12,14 @@ import CCBottomRefreshControl
 
 class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    private lazy var searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.obscuresBackgroundDuringPresentation = false
+        controller.searchBar.placeholder = "Search Characters"
+        controller.searchBar.delegate = self
+        return controller
+    }()
+    
     private lazy var bottomRefreshControl: UIRefreshControl = {
         let control = UIRefreshControl.newAutoLayout()
         control.triggerVerticalOffset = 100
@@ -49,7 +57,7 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         super.viewDidLoad()
         viewModel.delegate = self
         title = viewModel.title
-        
+        navigationItem.searchController = searchController
         registerCells()
     }
     
@@ -108,5 +116,23 @@ extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
     
     func didFinsihLoad(with error: NSError) {
         print("\(error.localizedDescription)")
+    }
+}
+
+extension CharacterCatalogViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchController.dismiss(animated: true, completion: nil)
+        
+        if let text = searchBar.text {
+            viewModel.searchCharacter(with: text)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.dismiss(animated: true, completion: nil)
+        viewModel.reset()
+        viewModel.loadCharacters()
     }
 }
