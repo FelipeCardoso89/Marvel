@@ -9,11 +9,11 @@
 import Foundation
 
 enum CharacterDetailSection {
-    case main(viewModels: [CharacterDetailHeaderTableViewCellDTO])
-    case comics(viewModels: [CharacterContentTableViewCellDTO])
-    case events(viewModels: [CharacterContentTableViewCellDTO])
-    case stories(viewModels: [CharacterContentTableViewCellDTO])
-    case series(viewModels: [CharacterContentTableViewCellDTO])
+    case main(viewModels: [CharacterDetailHeaderTableViewCellDTO], preview: Bool)
+    case comics(viewModels: [CharacterContentTableViewCellDTO], preview: Bool)
+    case events(viewModels: [CharacterContentTableViewCellDTO], preview: Bool)
+    case stories(viewModels: [CharacterContentTableViewCellDTO], preview: Bool)
+    case series(viewModels: [CharacterContentTableViewCellDTO], preview: Bool)
 }
  
 extension CharacterDetailSection {
@@ -34,14 +34,18 @@ extension CharacterDetailSection {
     }
     
     var numberOfRows: Int {
+        return viewModels.count
+    }
+    
+    var viewModels: [Any] {
         switch self {
-        case let .main(viewModels):
-            return viewModels.count
-        case let .comics(viewModels),
-             let .series(viewModels),
-             let .stories(viewModels),
-             let .events(viewModels):
-            return viewModels.count
+        case let .main(viewModels, _):
+            return viewModels
+        case let .comics(viewModels, _),
+             let .series(viewModels, _),
+             let .stories(viewModels, _),
+             let .events(viewModels, _):
+            return viewModels
         }
     }
     
@@ -50,7 +54,18 @@ extension CharacterDetailSection {
     }
     
     var noContentMessageTitle: String {
-        return "No content"
+        switch self {
+        case .main:
+            return "No Character Information"
+        case .comics:
+            return "No Comics"
+        case .events:
+            return "No Events"
+        case .stories:
+            return "No Stories"
+        case .series:
+            return "No Series"
+        }
     }
     
     var numberOfPreviewItems: Int {
@@ -58,19 +73,26 @@ extension CharacterDetailSection {
     }
     
     var preview: Bool {
-        return true
+        switch self {
+        case let .main(_, preview),
+             let .comics(_, preview),
+             let .series(_, preview),
+             let .stories(_, preview),
+             let .events(_, preview):
+            return preview
+        }
     }
     
     func viewModel(at row: Int) -> Any? {
         
         switch self {
-        case let .main(viewModel):
+        case let .main(viewModel, _):
             return viewModel[row]
             
-        case let .comics(viewModels),
-             let .series(viewModels),
-             let .stories(viewModels),
-             let .events(viewModels):
+        case let .comics(viewModels, _),
+             let .series(viewModels, _),
+             let .stories(viewModels, _),
+             let .events(viewModels, _):
             return viewModels[row]
         }
     }

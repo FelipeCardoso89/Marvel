@@ -12,7 +12,10 @@ class CharacterDetailViewModel {
     
     private let logic: CharacterDetailLogic
     private let character: Character
-    private var sections = [CharacterDetailSection]()
+    private var sectionKeys = [NSNumber]()
+    private var sections = [NSNumber: CharacterDetailSection]() {
+        didSet { sectionKeys = Array(sections.keys.sorted(by: { $0.compare($1) == .orderedAscending })) }
+    }
     
     var numberOfSections: Int {
         return sections.count
@@ -24,22 +27,24 @@ class CharacterDetailViewModel {
     }
     
     func loadCharacterData() {
-        sections.append(.main(viewModels: [CharacterDetailHeaderTableViewCellDTO(character: character)]))
-        sections.append(.comics(viewModels: character.comics?.items?.map({ CharacterContentTableViewCellDTO(comic: $0) }) ?? []))
-        sections.append(.series(viewModels: character.series?.items?.map({ CharacterContentTableViewCellDTO(serie: $0) }) ?? []))
-        sections.append(.stories(viewModels: character.stories?.items?.map({ CharacterContentTableViewCellDTO(story: $0) }) ?? []))
-        sections.append(.events(viewModels: character.events?.items?.map({ CharacterContentTableViewCellDTO(event: $0) }) ?? []))
+        sections[NSNumber(value: 0)] = .main(viewModels: [CharacterDetailHeaderTableViewCellDTO(character: character)], preview: true)
+        sections[NSNumber(value: 1)] = .comics(viewModels: character.comics?.items?.map({ CharacterContentTableViewCellDTO(comic: $0) }) ?? [], preview: true)
+        sections[NSNumber(value: 2)] = .series(viewModels: character.series?.items?.map({ CharacterContentTableViewCellDTO(serie: $0) }) ?? [], preview: true)
+        sections[NSNumber(value: 3)] = .stories(viewModels: character.stories?.items?.map({ CharacterContentTableViewCellDTO(story: $0) }) ?? [], preview: true)
+        sections[NSNumber(value: 4)] = .events(viewModels: character.events?.items?.map({ CharacterContentTableViewCellDTO(event: $0) }) ?? [], preview: true)
     }
     
     func numberOfRows(at section: Int) -> Int {
         
         let detailSection = characterDetailSection(at: IndexPath(row: 0, section: section))
-        let rows = sections[section].numberOfRows
+        let rows = detailSection.numberOfRows
         let numberOfPreviewItems = detailSection.numberOfPreviewItems
         
         switch rows {
         case _ where rows < 2:
             return 1
+        case _ where rows == detailSection.numberOfPreviewItems:
+            return rows
         case _ where ((rows > numberOfPreviewItems) && detailSection.preview):
             return numberOfPreviewItems + 1
         default:
@@ -48,15 +53,28 @@ class CharacterDetailViewModel {
     }
     
     func canShowContent(for section: CharacterDetailSection, at indexPath: IndexPath) -> Bool {
-        return (section.numberOfRows > indexPath.row) && (indexPath.row != section.numberOfPreviewItems)
+        
+        guard (section.numberOfRows > indexPath.row) else {
+            return false
+        }
+        
+        if section.preview {
+            return (section.numberOfPreviewItems != indexPath.row)
+        } else {
+            return (section.numberOfRows != indexPath.row)
+        }
+    }
+    
+    func characterDetailSectionKey(at section: Int) -> NSNumber {
+        return sectionKeys[section]
     }
     
     func characterDetailSection(at indexPath: IndexPath) -> CharacterDetailSection {
-        return sections[indexPath.section]
+        return sections[characterDetailSectionKey(at: indexPath.section)]!
     }
     
     func titleForHeader(at section: Int) -> String? {
-        return sections[section].headerTitle
+        return characterDetailSection(at: IndexPath(row: 0, section: section)).headerTitle
     }
     
     func viewModelForCell(at indexPath: IndexPath) -> Any? {
@@ -74,7 +92,28 @@ class CharacterDetailViewModel {
         return section.viewModel(at: indexPath.row)
     }
     
-    
+    func updatePreviewForContent(at indexPath: IndexPath) -> [IndexPath] {
+        
+        let key = characterDetailSectionKey(at: indexPath.section)
+        var section = characterDetailSection(at: indexPath)
+        
+        switch section {
+        case let .main(viewModels, preview):
+            section = .main(viewModels: viewModels, preview: !preview)
+        case let .comics(viewModels, preview):
+            section = .comics(viewModels: viewModels, preview: !preview)
+        case let .events(viewModels, preview):
+            section = .events(viewModels: viewModels, preview: !preview)
+        case let .stories(viewModels, preview):
+            section = .stories(viewModels: viewModels, preview: !preview)
+        case let .series(viewModels, preview):
+            section = .series(viewModels: viewModels, preview: !preview)
+        }
+        
+        sections.updateValue(section, forKey: key)
+        let numberOfIndexes = Array(section.numberOfPreviewItems..<section.viewModels.count)
+        return numberOfIndexes.map({ IndexPath(row: $0, section: indexPath.section) })
+    }
 }
 
 private extension CharacterDetailHeaderTableViewCellDTO {
