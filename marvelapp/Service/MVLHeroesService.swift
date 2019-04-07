@@ -12,10 +12,12 @@ typealias CharacterDataWrapperCompletionResult = ((Result<CharacterDataWrapper, 
 typealias CharacterDataWrapperResult = Result<CharacterDataWrapper, NSError>
 
 class MVLCharacterService {
+
+    private let limit = 20
     
     private let baseURL: URL
     private let apiKey: String
-    
+
     private var sharedSession: URLSession {
         return URLSession.shared
     }
