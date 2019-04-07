@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxSwift
 
 typealias CharacterDataWrapperCompletionResult = ((Result<CharacterDataWrapper, NSError>) -> Void)
 typealias CharacterDataWrapperResult = Result<CharacterDataWrapper, NSError>
@@ -25,24 +24,25 @@ class MVLCharacterService {
         self.baseURL = baseURL
         self.apiKey = apiKey
     }
+
     
-    func characters(completion: @escaping CharacterDataWrapperCompletionResult) {
+    func characters(at page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {
         
         guard let path = Bundle.main.path(forResource: "CharacterMock", ofType: "json") else {
             completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
             return
         }
-        
+
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else {
             completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
             return
         }
-        
+
         guard let response: CharacterDataWrapper = try? JSONDecoder().decode(CharacterDataWrapper.self, from: data) else {
             completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
             return
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             completion(.success(response))
         }
@@ -72,5 +72,7 @@ class MVLCharacterService {
 //
 //        task.resume()
     }
-
+    
+    
+    
 }

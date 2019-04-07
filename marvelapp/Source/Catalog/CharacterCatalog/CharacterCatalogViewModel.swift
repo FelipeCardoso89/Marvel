@@ -17,13 +17,15 @@ class CharacterCatalogViewModel {
     
     private let logic: CharacterCatalogLogic
     
-    private var characterData: CharacterDataWrapper?
+    private var characterData: CharacterDataWrapper? {
+        didSet (newValue) { characters.append(contentsOf: characterData?.data?.results ?? []) }
+    }
     
     weak var delegate: CharacterCatalogViewModelDelegate?
     
-    private var characters: [Character] {
-        return characterData?.data?.results ?? []
-    }
+    private var characters = [Character]()
+    
+    private var currentPage: Int = -1
     
     var numberOfCharacters: Int {
         return characters.count
@@ -34,19 +36,32 @@ class CharacterCatalogViewModel {
     }
     
     func loadCharacters() {
+        loadCharacters(at: 0)
+    }
+    
+    func loadNextPage() {
+        loadCharacters(at: currentPage + 1)
+    }
+    
+    func character(at indexPath: IndexPath) -> Character? {
+        return (indexPath.row < characters.count) ? characters[indexPath.row] : nil
+    }
+    
+    private func loadCharacters(at page: Int) {
         
-        logic.characters { (result) in
+        guard currentPage != page else {
+            return
+        }
+        
+        logic.characters(at: page) { (result) in
             switch result {
-            case let .success(characters):
-                self.characterData = characters
+            case let .success(characterData):
+                self.currentPage = page
+                self.characterData = characterData
                 self.delegate?.didFinsihLoad()
             case let .failure(error):
                 self.delegate?.didFinsihLoad(with: error)
             }
         }
-    }
-    
-    func character(at indexPath: IndexPath) -> Character? {
-        return (indexPath.row < characters.count) ? characters[indexPath.row] : nil
     }
 }

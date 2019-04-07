@@ -7,7 +7,7 @@ target 'marvelapp' do
 
   # Pods for marvelapp
   pod 'PureLayout'
-  pod 'RxSwift', '~> 4.0'
+  pod 'CCBottomRefreshControl'
 
   target 'marvelappTests' do
     inherit! :search_paths

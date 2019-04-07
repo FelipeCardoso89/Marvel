@@ -8,9 +8,17 @@
 
 import UIKit
 import PureLayout
+import CCBottomRefreshControl
 
 class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    private lazy var bottomRefreshControl: UIRefreshControl = {
+        let control = UIRefreshControl.newAutoLayout()
+        control.triggerVerticalOffset = 100
+        control.addTarget(self, action: #selector(loadNextPage), for: .valueChanged)
+        return control
+    }()
+    
     private lazy var catalogCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
@@ -56,6 +64,10 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         catalogCollectionView.autoPinEdgesToSuperviewEdges()
     }
     
+    override func configureViews() {
+        catalogCollectionView.bottomRefreshControl = bottomRefreshControl
+    }
+    
     private func registerCells() {
         catalogCollectionView.registerCell(of: CatalogItemCollectionViewCell.self)
     }
@@ -78,11 +90,16 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
             return  UICollectionViewCell(frame: CGRect.zero)
         }
     }
+    
+    @objc func loadNextPage() {
+        viewModel.loadNextPage()
+    }
 }
 
 extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
     func didFinsihLoad() {
         DispatchQueue.main.async {
+            self.catalogCollectionView.bottomRefreshControl?.endRefreshing()
             self.catalogCollectionView.reloadData()
         }
     }
