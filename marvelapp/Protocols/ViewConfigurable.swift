@@ -9,6 +9,8 @@
 import UIKit
 
 protocol ViewConfigurable {
+    
     associatedtype ViewModel
-    func configure(with viewModel: ViewModel)
+    
+    func configure(with viewModel: ViewModel?)
 }

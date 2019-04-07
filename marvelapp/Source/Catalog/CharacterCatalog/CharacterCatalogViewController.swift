@@ -80,17 +80,13 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
-        if let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath) {
-            
-            if let character = viewModel.character(at: indexPath)  {
-                cell.configure(with: CatalogItemCollectionViewCellDTO(character: character))
-            }
-
-            return cell
-            
-        } else {
-            return  UICollectionViewCell(frame: CGRect.zero)
+        let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath)
+       
+        if let character = viewModel.character(at: indexPath)  {
+            cell.configure(with: CatalogItemCollectionViewCellDTO(character: character))
         }
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

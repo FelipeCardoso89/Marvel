@@ -49,6 +49,9 @@ class CharacterDetailViewController: ViewController<UIView> {
     
     private func registerCells() {
         characterDetailTableView.registerCell(of: CharacterDetailHeaderTableViewCell.self)
+        characterDetailTableView.registerCell(of: CharacterContentTableViewCell.self)
+        characterDetailTableView.registerCell(of: MessageTableViewCell.self)
+        characterDetailTableView.registerCell(of: ActionTableViewCell.self)
     }
 }
 
@@ -64,15 +67,17 @@ extension CharacterDetailViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch viewModel.section(at: indexPath) {
-        case let .main(viewModel):
-            
-            guard let cell = tableView.dequeueReusableCell(CharacterDetailHeaderTableViewCell.self, for: indexPath) else {
-                return UITableViewCell(style: .default, reuseIdentifier: "Cell")
-            }
-            
-            cell.configure(with: viewModel)
-            return cell
+        let model = viewModel.viewModelForCell(at: indexPath)
+        
+        switch model {
+        case let dto as CharacterDetailHeaderTableViewCellDTO:
+            return table(tableView, headerCellAt: indexPath, with: dto)
+        case let dto as CharacterContentTableViewCellDTO:
+            return table(tableView, contentCellAt: indexPath, with: dto)
+        case let dto as MessageTableViewCellDTO:
+            return table(tableView, messageCellAt: indexPath, with: dto)
+        case let dto as ActionTableViewCellDTO:
+            return table(tableView, actionCellAt: indexPath, with: dto)
         default:
             return UITableViewCell(style: .default, reuseIdentifier: "Cell")
         }
@@ -81,4 +86,33 @@ extension CharacterDetailViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return viewModel.titleForHeader(at: section)
     }
+
+}
+
+private extension CharacterDetailViewController {
+    
+    func table(_ tableView: UITableView, messageCellAt indexPath: IndexPath, with viewModel: MessageTableViewCellDTO?) -> MessageTableViewCell {
+        let cell = tableView.dequeueReusableCell(MessageTableViewCell.self, for: indexPath)
+        cell.configure(with: viewModel)
+        return cell
+    }
+    
+    func table(_ tableView: UITableView, actionCellAt indexPath: IndexPath, with viewModel: ActionTableViewCellDTO?) -> ActionTableViewCell {
+        let cell = tableView.dequeueReusableCell(ActionTableViewCell.self, for: indexPath)
+        cell.configure(with: viewModel)
+        return cell
+    }
+    
+    func table(_ tableView: UITableView, contentCellAt indexPath: IndexPath, with viewModel: CharacterContentTableViewCellDTO?) -> CharacterContentTableViewCell {
+        let cell = tableView.dequeueReusableCell(CharacterContentTableViewCell.self, for: indexPath)
+        cell.configure(with: viewModel)
+        return cell
+    }
+    
+    func table(_ tableView: UITableView, headerCellAt indexPath: IndexPath, with viewModel: CharacterDetailHeaderTableViewCellDTO?) -> CharacterDetailHeaderTableViewCell {
+        let cell = tableView.dequeueReusableCell(CharacterDetailHeaderTableViewCell.self, for: indexPath)
+        cell.configure(with: viewModel)
+        return cell
+    }
+    
 }

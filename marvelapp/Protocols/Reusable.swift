@@ -31,8 +31,12 @@ extension Reusable where Self: UICollectionView {
         register(nib(type, bundle: bundle), forCellWithReuseIdentifier: type.reuseIdentifier)
     }
     
-    func dequeueReusableCell<T: UICollectionViewCell>(_ type: T.Type, for indexPath: IndexPath) -> T? {
-        return dequeueReusableCell(withReuseIdentifier: type.reuseIdentifier, for: indexPath) as? T
+    func dequeueReusableCell<T: UICollectionViewCell>(_ type: T.Type, for indexPath: IndexPath) -> T {
+        if let cell = dequeueReusableCell(withReuseIdentifier: type.reuseIdentifier, for: indexPath) as? T {
+            return cell
+        } else {
+            return T()
+        }
     }
 }
 
@@ -42,7 +46,11 @@ extension Reusable where Self: UITableView {
         register(nib(type, bundle: bundle), forCellReuseIdentifier: type.reuseIdentifier)
     }
     
-    func dequeueReusableCell<T: UITableViewCell>(_ type: T.Type, for indexPath: IndexPath) -> T? {
-        return dequeueReusableCell(withIdentifier: type.reuseIdentifier, for: indexPath) as? T
+    func dequeueReusableCell<T: UITableViewCell>(_ type: T.Type, for indexPath: IndexPath) -> T {
+        if let cell = dequeueReusableCell(withIdentifier: type.reuseIdentifier, for: indexPath) as? T {
+            return cell
+        } else {
+            return T(style: .default, reuseIdentifier: T.reuseIdentifier)
+        }
     }
 }

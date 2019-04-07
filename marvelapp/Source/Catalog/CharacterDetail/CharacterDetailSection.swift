@@ -9,17 +9,19 @@
 import Foundation
 
 enum CharacterDetailSection {
-    case main(viewModel: CharacterDetailHeaderTableViewCellDTO)
-    case comics
-    case events
-    case stories
-    case series
+    case main(viewModels: [CharacterDetailHeaderTableViewCellDTO])
+    case comics(viewModels: [CharacterContentTableViewCellDTO])
+    case events(viewModels: [CharacterContentTableViewCellDTO])
+    case stories(viewModels: [CharacterContentTableViewCellDTO])
+    case series(viewModels: [CharacterContentTableViewCellDTO])
 }
-
+ 
 extension CharacterDetailSection {
     
     var headerTitle: String?  {
         switch self {
+        case .main:
+            return nil
         case .comics:
             return "Comics"
         case .events:
@@ -28,18 +30,48 @@ extension CharacterDetailSection {
             return "Stories"
         case .series:
             return "Series"
-        default:
-            return nil
         }
     }
     
     var numberOfRows: Int {
         switch self {
-        case .main:
-            return 1
-        default:
-            return 0
+        case let .main(viewModels):
+            return viewModels.count
+        case let .comics(viewModels),
+             let .series(viewModels),
+             let .stories(viewModels),
+             let .events(viewModels):
+            return viewModels.count
         }
     }
     
+    var callToActionTitle: String {
+        return preview ? "Show more" : "Show less"
+    }
+    
+    var noContentMessageTitle: String {
+        return "No content"
+    }
+    
+    var numberOfPreviewItems: Int {
+        return 3
+    }
+    
+    var preview: Bool {
+        return true
+    }
+    
+    func viewModel(at row: Int) -> Any? {
+        
+        switch self {
+        case let .main(viewModel):
+            return viewModel[row]
+            
+        case let .comics(viewModels),
+             let .series(viewModels),
+             let .stories(viewModels),
+             let .events(viewModels):
+            return viewModels[row]
+        }
+    }
 }

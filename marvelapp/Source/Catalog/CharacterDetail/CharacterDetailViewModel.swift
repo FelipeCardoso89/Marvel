@@ -24,24 +24,85 @@ class CharacterDetailViewModel {
     }
     
     func loadCharacterData() {
-        
-        sections.append(.main(viewModel: CharacterDetailHeaderTableViewCellDTO(
-            title: character.name,
-            description: character.description,
-            imageURL: character.thumbnail?.url
-        )))
-        
+        sections.append(.main(viewModels: [CharacterDetailHeaderTableViewCellDTO(character: character)]))
+        sections.append(.comics(viewModels: character.comics?.items?.map({ CharacterContentTableViewCellDTO(comic: $0) }) ?? []))
+        sections.append(.series(viewModels: character.series?.items?.map({ CharacterContentTableViewCellDTO(serie: $0) }) ?? []))
+        sections.append(.stories(viewModels: character.stories?.items?.map({ CharacterContentTableViewCellDTO(story: $0) }) ?? []))
+        sections.append(.events(viewModels: character.events?.items?.map({ CharacterContentTableViewCellDTO(event: $0) }) ?? []))
     }
     
     func numberOfRows(at section: Int) -> Int {
-        return sections[section].numberOfRows
+        
+        let detailSection = characterDetailSection(at: IndexPath(row: 0, section: section))
+        let rows = sections[section].numberOfRows
+        let numberOfPreviewItems = detailSection.numberOfPreviewItems
+        
+        switch rows {
+        case _ where rows < 2:
+            return 1
+        case _ where ((rows > numberOfPreviewItems) && detailSection.preview):
+            return numberOfPreviewItems + 1
+        default:
+            return rows + 1
+        }
     }
     
-    func section(at indexPath: IndexPath) -> CharacterDetailSection {
+    func canShowContent(for section: CharacterDetailSection, at indexPath: IndexPath) -> Bool {
+        return (section.numberOfRows > indexPath.row) && (indexPath.row != section.numberOfPreviewItems)
+    }
+    
+    func characterDetailSection(at indexPath: IndexPath) -> CharacterDetailSection {
         return sections[indexPath.section]
     }
     
     func titleForHeader(at section: Int) -> String? {
         return sections[section].headerTitle
     }
+    
+    func viewModelForCell(at indexPath: IndexPath) -> Any? {
+        
+        let section = characterDetailSection(at: indexPath)
+        
+        guard canShowContent(for: section, at: indexPath) else {
+            if (indexPath.row == 0) {
+                return MessageTableViewCellDTO(title: section.noContentMessageTitle)
+            } else {
+                return ActionTableViewCellDTO(actionTitle: section.callToActionTitle)
+            }
+        }
+        
+        return section.viewModel(at: indexPath.row)
+    }
+    
+    
+}
+
+private extension CharacterDetailHeaderTableViewCellDTO {
+    init(character: Character) {
+        self.init(
+            title: character.name,
+            description: character.description,
+            imageURL: character.thumbnail?.url
+        )
+    }
+}
+
+private extension CharacterContentTableViewCellDTO {
+    
+    init(comic: ComicSummary) {
+        self.init(title: comic.name, imageURL: nil)
+    }
+    
+    init(story: StorySummary) {
+        self.init(title: story.name, imageURL: nil)
+    }
+    
+    init(event: EventSummary) {
+        self.init(title: event.name, imageURL: nil)
+    }
+    
+    init(serie: SeriesSummary) {
+        self.init(title: serie.name, imageURL: nil)
+    }
+
 }

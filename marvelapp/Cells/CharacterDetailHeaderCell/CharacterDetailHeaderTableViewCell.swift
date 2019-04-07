@@ -33,17 +33,17 @@ extension CharacterDetailHeaderTableViewCell: ViewConfigurable {
     
     typealias ViewModel = CharacterDetailHeaderTableViewCellDTO
     
-    func configure(with viewModel: CharacterDetailHeaderTableViewCellDTO) {
+    func configure(with viewModel: CharacterDetailHeaderTableViewCellDTO?) {
         
-        titleLabel.text = viewModel.title
+        titleLabel.text = viewModel?.title
         
-        if !(viewModel.description?.isEmpty ?? true) {
-            descriptionLabel.text = viewModel.description ?? "No description"
+        if !(viewModel?.description?.isEmpty ?? true) {
+            descriptionLabel.text = viewModel?.description ?? "No description"
         } else {
             descriptionLabel.text = "No description"
         }
         
-        if let url = viewModel.imageURL {
+        if let url = viewModel?.imageURL {
             headerImageView.loadImage(from: url)
         }
     }

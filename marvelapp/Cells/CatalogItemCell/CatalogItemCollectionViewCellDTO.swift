@@ -19,4 +19,3 @@ extension CatalogItemCollectionViewCellDTO {
         self.imageURL = character.thumbnail?.url
     }
 }
-
