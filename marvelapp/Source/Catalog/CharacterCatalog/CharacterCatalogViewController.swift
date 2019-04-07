@@ -20,6 +20,10 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         return controller
     }()
     
+    private lazy var loadingViewController: LoadingViewController = {
+        return LoadingViewController.loadXib(from: nil)
+    }()
+    
     private lazy var bottomRefreshControl: UIRefreshControl = {
         let control = UIRefreshControl.newAutoLayout()
         control.triggerVerticalOffset = 100
@@ -107,8 +111,20 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
 }
 
 extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
+    
+    func willStartLoad() {
+        
+        guard viewModel.isFirstLoad else {
+            return
+        }
+        
+        add(loadingViewController)
+        loadingViewController.view.autoPinEdgesToSuperviewEdges()
+    }
+    
     func didFinsihLoad() {
         DispatchQueue.main.async {
+            self.loadingViewController.remove()
             self.catalogCollectionView.bottomRefreshControl?.endRefreshing()
             self.catalogCollectionView.reloadData()
         }
@@ -122,8 +138,13 @@ extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
 extension CharacterCatalogViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    
+        viewModel.reset()
         
-        searchController.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.searchController.dismiss(animated: true, completion: nil)
+            self.catalogCollectionView.reloadData()
+        }
         
         if let text = searchBar.text {
             viewModel.searchCharacter(with: text)
@@ -131,8 +152,14 @@ extension CharacterCatalogViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchController.dismiss(animated: true, completion: nil)
+        
         viewModel.reset()
+        
+        DispatchQueue.main.async {
+            self.searchController.dismiss(animated: true, completion: nil)
+            self.catalogCollectionView.reloadData()
+        }
+        
         viewModel.loadCharacters()
     }
 }

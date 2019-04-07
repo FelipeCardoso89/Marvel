@@ -9,6 +9,7 @@
 import Foundation
 
 protocol CharacterCatalogViewModelDelegate: class {
+    func willStartLoad()
     func didFinsihLoad()
     func didFinsihLoad(with error: NSError)
 }
@@ -34,6 +35,10 @@ class CharacterCatalogViewModel {
     private var currentPage: Int = -1
     private var currentName: String?
     
+    var isFirstLoad: Bool {
+        return currentPage == -1
+    }
+    
     var numberOfCharacters: Int {
         return characters.count
     }
@@ -48,7 +53,7 @@ class CharacterCatalogViewModel {
     
     func loadCharacters() {
         
-        guard currentPage == -1 else {
+        guard isFirstLoad else {
             return
         }
         
@@ -62,6 +67,7 @@ class CharacterCatalogViewModel {
     func reset() {
         currentPage = -1
         currentName = nil
+        characterData = nil
     }
     
     func character(at indexPath: IndexPath) -> Character? {
@@ -88,6 +94,7 @@ class CharacterCatalogViewModel {
             return
         }
         
+        delegate?.willStartLoad()
         logic.character(with: name, at: page) { (result) in
             switch result {
             case let .success(characterData):

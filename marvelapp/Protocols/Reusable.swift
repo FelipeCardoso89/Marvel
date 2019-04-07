@@ -54,3 +54,12 @@ extension Reusable where Self: UITableView {
         }
     }
 }
+
+extension UIViewController: Reusable {}
+extension Reusable where Self: UIViewController {
+    
+    static func loadXib(from bundle: Bundle?) -> Self {
+        return Self(nibName: Self.reuseIdentifier, bundle: bundle)
+    }
+    
+}
