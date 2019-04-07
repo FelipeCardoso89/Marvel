@@ -85,22 +85,29 @@ extension CharacterDetailViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard indexPath.row == (viewModel.numberOfRows(at: indexPath.section) - 1) else {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
             return
         }
         
-        let section = viewModel.characterDetailSection(at: indexPath)
-        let animation = UITableView.RowAnimation.fade
-        
-        tableView.beginUpdates()
-        
-        if section.preview {
-            tableView.insertRows(at: viewModel.updatePreviewForContent(at: indexPath), with: animation)
-        } else {
-            tableView.deleteRows(at: viewModel.updatePreviewForContent(at: indexPath), with: animation)
+        switch cell {
+        case _ as ActionTableViewCell:
+            
+            let section = viewModel.characterDetailSection(at: indexPath)
+            let animation = UITableView.RowAnimation.fade
+            
+            tableView.beginUpdates()
+            
+            if section.preview {
+                tableView.insertRows(at: viewModel.updatePreviewForContent(at: indexPath), with: animation)
+            } else {
+                tableView.deleteRows(at: viewModel.updatePreviewForContent(at: indexPath), with: animation)
+            }
+            
+            tableView.endUpdates()
+            
+        default:
+            break
         }
-        
-        tableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
