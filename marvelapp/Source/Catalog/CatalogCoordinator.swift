@@ -13,7 +13,7 @@ class CatalogCoordinator: NavigationCoordinator {
     private lazy var characterCatalogBuilder: CharacterCatalogBuilder = {
         return CharacterCatalogBuilder(router: self)
     }()
-    
+  
     func start() {
         viewController.setViewControllers([characterCatalogBuilder.build()], animated: true)
     }
@@ -21,5 +21,12 @@ class CatalogCoordinator: NavigationCoordinator {
 }
 
 extension CatalogCoordinator: CharacterCatalogRouterable {
+    
+    func detail(for character: Character) {
+        viewController.pushViewController(CharacterDetailBuilder(router: self, character: character).build(), animated: true)
+    }
+}
+
+extension CatalogCoordinator: CharacterDetailRouterable {
     
 }

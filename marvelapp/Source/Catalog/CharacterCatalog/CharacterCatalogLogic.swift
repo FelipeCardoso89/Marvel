@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CharacterCatalogRouterable: class {
-    
+    func detail(for character: Character)
 }
 
 protocol CharacterCatalogServable: class {
@@ -32,6 +32,10 @@ class CharacterCatalogLogic {
     
     func characters(at page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {
         service.characters(at: page, completion: completion)
+    }
+    
+    func showDetail(of character: Character) {
+        router?.detail(for: character)
     }
     
 }

@@ -48,6 +48,8 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
+        title = viewModel.title
+        
         registerCells()
     }
     
@@ -89,6 +91,10 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         } else {
             return  UICollectionViewCell(frame: CGRect.zero)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.detailForCharacter(at: indexPath)
     }
     
     @objc func loadNextPage() {
