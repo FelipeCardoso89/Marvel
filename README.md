@@ -5,7 +5,7 @@ You can search and save the chracteres you like most.
 
 ## Architecture
 
-This app is using `MVVM`, with `Interactor (Called Logic in this project)` and `Routers`, taking advantage of `Coordinators` no navigate between screens.
+This app is using `MVVM`, with `Interactor (Called Logic in this project)` and `Routers`, taking advantage of `Coordinators` on navigate between screens.
 All the `UIKit` stuff are only at `Coordinators` and `UIViewControllers`. The app's core do not rely on UIKit.
 
 The data flow starts from the user interface on the screen to the ViewModel then to the Logic class and then to the router's class when we need to go to another screen. The service layer is injected into the Logic, so it's easy to replace  network calls with mocked jsons.
