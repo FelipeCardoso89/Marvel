@@ -24,7 +24,7 @@ Add a activity indicator at the bottom of UIScrollView (UITableView, UICollectio
 ## How to install
 
 * Clone or download the project to your machine.
-* At the project directory run: ```pod install```.
+* At the project directory run: ```bundle install```,```bundle exec pod install```.
 * Open XCode10 and build the project using: ```Cmd```+ ```Shift``` + ```B```.
 * Build the project for testing using: ```Cmd```+ ```Shift```+ ```U```.
 * Run the tests using: ```Cmd``` + ```U```
