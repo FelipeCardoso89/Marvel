@@ -57,7 +57,9 @@
 		155A2220225AB136006CF035 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A221E225AB136006CF035 /* LoadingViewController.swift */; };
 		155A2221225AB136006CF035 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 155A221F225AB136006CF035 /* LoadingViewController.xib */; };
 		155A2223225AB1A7006CF035 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A2222225AB1A7006CF035 /* UIViewController+Extensions.swift */; };
+		155A2226225AB972006CF035 /* CharacterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A2225225AB972006CF035 /* CharacterOption.swift */; };
 		1569AAD422595F79004296D0 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1569AAD322595F79004296D0 /* UIImageView+Extensions.swift */; };
+		156EA67B225AC12600CC855D /* AlertControllerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156EA67A225AC12600CC855D /* AlertControllerPresentable.swift */; };
 		15CB8A282258304700FE6A29 /* CharacterMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 15CB8A272258304700FE6A29 /* CharacterMock.json */; };
 		15CB8A2A225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB8A29225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift */; };
 		2A6FF86EFC81945DF825A0D4 /* Pods_marvelapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43389F0FA2A633DF0F76C8CF /* Pods_marvelapp.framework */; };
@@ -141,7 +143,9 @@
 		155A221E225AB136006CF035 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		155A221F225AB136006CF035 /* LoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		155A2222225AB1A7006CF035 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		155A2225225AB972006CF035 /* CharacterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOption.swift; sourceTree = "<group>"; };
 		1569AAD322595F79004296D0 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		156EA67A225AC12600CC855D /* AlertControllerPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerPresentable.swift; sourceTree = "<group>"; };
 		15CB8A272258304700FE6A29 /* CharacterMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CharacterMock.json; sourceTree = "<group>"; };
 		15CB8A29225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogItemCollectionViewCellDTO.swift; sourceTree = "<group>"; };
 		3C83A76370F93B477EF48F67 /* Pods-marvelappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvelappTests.debug.xcconfig"; path = "Target Support Files/Pods-marvelappTests/Pods-marvelappTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 				1523751C2257E53C0049E36C /* Reusable.swift */,
 				1523752E2257EE890049E36C /* ViewConfiguration.swift */,
 				155A22002259B1B3006CF035 /* ViewConfigurable.swift */,
+				156EA67A225AC12600CC855D /* AlertControllerPresentable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -376,6 +381,14 @@
 			path = LoadingViewController;
 			sourceTree = "<group>";
 		};
+		155A2224225AB948006CF035 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				155A2225225AB972006CF035 /* CharacterOption.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		1569AAD222595F63004296D0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +448,7 @@
 				1569AAD222595F63004296D0 /* Extensions */,
 				152375172257E44F0049E36C /* Classes */,
 				152375162257E42D0049E36C /* Protocols */,
+				155A2224225AB948006CF035 /* Entities */,
 				1523753D225807630049E36C /* Cells */,
 				152375362257F3160049E36C /* Service */,
 				152375122257E3DE0049E36C /* Source */,
@@ -723,6 +737,7 @@
 				155A2220225AB136006CF035 /* LoadingViewController.swift in Sources */,
 				155A21DD2259962F006CF035 /* CharacterDetailSection.swift in Sources */,
 				152375312257EECB0049E36C /* CharacterCatalogViewModel.swift in Sources */,
+				155A2226225AB972006CF035 /* CharacterOption.swift in Sources */,
 				155A21EF2259ABC7006CF035 /* StoryList.swift in Sources */,
 				155A21ED2259AB55006CF035 /* EventSummary.swift in Sources */,
 				152375152257E4000049E36C /* AppCoordinator.swift in Sources */,
@@ -750,6 +765,7 @@
 				155A21FF2259B149006CF035 /* CharacterDetailHeaderTableViewCellDTO.swift in Sources */,
 				155A21EB2259AB4B006CF035 /* EventList.swift in Sources */,
 				3E1EB14F22570326000A8E49 /* marvelapp.xcdatamodeld in Sources */,
+				156EA67B225AC12600CC855D /* AlertControllerPresentable.swift in Sources */,
 				155A22082259C077006CF035 /* CharacterContentTableViewCellDTO.swift in Sources */,
 				1523751F2257E6FD0049E36C /* NavigationCoordinator.swift in Sources */,
 				1523752F2257EE890049E36C /* ViewConfiguration.swift in Sources */,

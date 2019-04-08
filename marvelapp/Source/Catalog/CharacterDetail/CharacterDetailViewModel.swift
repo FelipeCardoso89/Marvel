@@ -27,7 +27,7 @@ class CharacterDetailViewModel {
     }
     
     func loadCharacterData() {
-        sections[NSNumber(value: 0)] = .main(viewModels: [CharacterDetailHeaderTableViewCellDTO(character: character)], preview: true)
+        sections[NSNumber(value: 0)] = .main(viewModels: [CharacterDetailHeaderTableViewCellDTO(character: character, favorited: logic.isFavorite(character: character))], preview: true)
         sections[NSNumber(value: 1)] = .comics(viewModels: character.comics?.items?.map({ CharacterContentTableViewCellDTO(comic: $0) }) ?? [], preview: true)
         sections[NSNumber(value: 2)] = .series(viewModels: character.series?.items?.map({ CharacterContentTableViewCellDTO(serie: $0) }) ?? [], preview: true)
         sections[NSNumber(value: 3)] = .stories(viewModels: character.stories?.items?.map({ CharacterContentTableViewCellDTO(story: $0) }) ?? [], preview: true)
@@ -114,14 +114,38 @@ class CharacterDetailViewModel {
         let numberOfIndexes = Array(section.numberOfPreviewItems..<section.viewModels.count)
         return numberOfIndexes.map({ IndexPath(row: $0, section: indexPath.section) })
     }
+    
+    func showOptions(completion: (() -> Void)? = nil) {
+        
+        logic.showOptionsFor(character: character) { (result) in
+            
+            guard case let .success(option) = result else {
+                return
+            }
+            
+            switch option {
+            case .favorite:
+                self.logic.favorite(self.character, completion: { _ in
+                    completion?()
+                })
+                
+            case .unfavorite:
+                self.logic.unfavorite(self.character, completion: { _ in
+                    completion?()
+                })
+                break
+            }
+        }
+    }
 }
 
 private extension CharacterDetailHeaderTableViewCellDTO {
-    init(character: Character) {
+    init(character: Character, favorited: Bool) {
         self.init(
             title: character.name,
             description: character.description,
-            imageURL: character.thumbnail?.url
+            imageURL: character.thumbnail?.url,
+            favorited: favorited
         )
     }
 }

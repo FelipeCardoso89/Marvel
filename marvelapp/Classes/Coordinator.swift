@@ -13,6 +13,10 @@ class Coordinator: Coordinatable {
     var viewController = UIViewController()
 }
 
+extension Coordinator: AlertControllerPresentable {
+    
+}
+
 extension Coordinatable where Self: Coordinator {
     
     var rootViewController: UIViewController {

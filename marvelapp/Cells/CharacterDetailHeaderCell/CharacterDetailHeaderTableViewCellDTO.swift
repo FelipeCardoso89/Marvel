@@ -12,4 +12,5 @@ struct CharacterDetailHeaderTableViewCellDTO {
     let title: String?
     let description: String?
     let imageURL: URL?
+    let favorited: Bool
 }

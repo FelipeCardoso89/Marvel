@@ -11,6 +11,11 @@ import PureLayout
 
 class CharacterDetailViewController: ViewController<UIView> {
     
+    private lazy var optionsButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Options", style: UIBarButtonItem.Style.done, target: self, action: #selector(didPressOptionsButton))
+        return button
+    }()
+    
     private lazy var characterDetailTableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.rowHeight = UITableView.automaticDimension
@@ -35,6 +40,9 @@ class CharacterDetailViewController: ViewController<UIView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
+        
+        navigationItem.rightBarButtonItem = optionsButton
+        
         viewModel.loadCharacterData()
         characterDetailTableView.reloadData()
     }
@@ -52,6 +60,13 @@ class CharacterDetailViewController: ViewController<UIView> {
         characterDetailTableView.registerCell(of: CharacterContentTableViewCell.self)
         characterDetailTableView.registerCell(of: MessageTableViewCell.self)
         characterDetailTableView.registerCell(of: ActionTableViewCell.self)
+    }
+    
+    @objc func didPressOptionsButton() {
+        viewModel.showOptions {
+            self.viewModel.loadCharacterData()
+            self.characterDetailTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
     }
 }
 

@@ -65,6 +65,14 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         registerCells()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.catalogCollectionView.reloadData()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.loadCharacters()
@@ -91,14 +99,12 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
-        let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath)
-       
-        if let character = viewModel.character(at: indexPath)  {
-            cell.configure(with: CatalogItemCollectionViewCellDTO(character: character))
+        switch viewModel.viewModel(at: indexPath) {
+        case let dto as CatalogItemCollectionViewCellDTO:
+            return table(collectionView, catalogCellAt: indexPath, with: dto)
+        default:
+            return UICollectionViewCell()
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -107,6 +113,28 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     
     @objc func loadNextPage() {
         viewModel.loadNextPage()
+    }
+}
+
+private extension CharacterCatalogViewController {
+    
+    func table(_ collectionView: UICollectionView, catalogCellAt indexPath: IndexPath, with viewModel: CatalogItemCollectionViewCellDTO?) -> CatalogItemCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath)
+        cell.indexPath = indexPath
+        cell.delegate = self
+        cell.configure(with: viewModel)
+        return cell
+    }
+}
+
+extension CharacterCatalogViewController: CatalogItemCollectionViewCellDelegate {
+    
+    func longPressCell(at indexPath: IndexPath) {
+        viewModel.optionsForCharacter(at: indexPath) {
+            DispatchQueue.main.async {
+                self.catalogCollectionView.reloadItems(at: [indexPath])
+            }
+        }
     }
 }
 

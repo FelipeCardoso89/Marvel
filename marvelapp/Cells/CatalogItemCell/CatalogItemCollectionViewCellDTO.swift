@@ -11,11 +11,13 @@ import Foundation
 struct CatalogItemCollectionViewCellDTO {
     let title: String?
     let imageURL: URL?
+    let favorited: Bool
 }
 
 extension CatalogItemCollectionViewCellDTO {
-    init(character: Character) {
+    init(character: Character, favorited: Bool) {
         self.title = character.name
         self.imageURL = character.thumbnail?.url
+        self.favorited = favorited
     }
 }

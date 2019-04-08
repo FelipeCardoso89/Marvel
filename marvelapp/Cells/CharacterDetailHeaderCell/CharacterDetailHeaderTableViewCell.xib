@@ -32,6 +32,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start" translatesAutoresizingMaskIntoConstraints="NO" id="lxB-ap-ORC">
+                                <rect key="frame" x="16" y="187.5" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="6ff-Gu-IXQ"/>
+                                    <constraint firstAttribute="width" constant="42" id="cMh-8k-hlv"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdD-h2-Pmd">
                                 <rect key="frame" x="16" y="245.5" width="288" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
@@ -42,6 +49,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="F3J-Tp-c62" firstAttribute="top" secondItem="I7A-r6-Tik" secondAttribute="top" id="66v-pa-t1b"/>
+                            <constraint firstItem="lxB-ap-ORC" firstAttribute="leading" secondItem="I7A-r6-Tik" secondAttribute="leading" constant="16" id="Fp9-tx-bW9"/>
                             <constraint firstAttribute="bottom" secondItem="cdD-h2-Pmd" secondAttribute="bottom" constant="16" id="GsM-KA-QKL"/>
                             <constraint firstItem="xKz-aL-Eix" firstAttribute="top" secondItem="I7A-r6-Tik" secondAttribute="top" id="T7D-az-pxE"/>
                             <constraint firstAttribute="trailing" secondItem="xKz-aL-Eix" secondAttribute="trailing" id="Tf3-ZU-H1o"/>
@@ -49,6 +57,7 @@
                             <constraint firstItem="cdD-h2-Pmd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I7A-r6-Tik" secondAttribute="top" constant="16" id="c3S-yM-BE6"/>
                             <constraint firstItem="F3J-Tp-c62" firstAttribute="leading" secondItem="I7A-r6-Tik" secondAttribute="leading" id="dk3-5O-yf8"/>
                             <constraint firstAttribute="trailing" secondItem="F3J-Tp-c62" secondAttribute="trailing" id="f7M-ZE-SzP"/>
+                            <constraint firstItem="cdD-h2-Pmd" firstAttribute="top" secondItem="lxB-ap-ORC" secondAttribute="bottom" constant="16" id="gXd-wD-Qb5"/>
                             <constraint firstAttribute="trailing" secondItem="cdD-h2-Pmd" secondAttribute="trailing" constant="16" id="lhI-el-T0m"/>
                             <constraint firstAttribute="bottom" secondItem="F3J-Tp-c62" secondAttribute="bottom" id="rPq-gP-RJQ"/>
                             <constraint firstItem="xKz-aL-Eix" firstAttribute="leading" secondItem="I7A-r6-Tik" secondAttribute="leading" id="rai-OA-O7b"/>
@@ -78,6 +87,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="descriptionLabel" destination="vME-Nl-Dcb" id="f93-Yg-caz"/>
+                <outlet property="favoritedIconImageView" destination="lxB-ap-ORC" id="wOq-7m-dzP"/>
                 <outlet property="gradientView" destination="F3J-Tp-c62" id="PFr-g4-3vA"/>
                 <outlet property="headerImageView" destination="xKz-aL-Eix" id="hvr-nf-Pzq"/>
                 <outlet property="titleLabel" destination="cdD-h2-Pmd" id="eHA-9v-i6E"/>
@@ -85,4 +95,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="252.79017857142856"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Start" width="64" height="64"/>
+    </resources>
 </document>

@@ -31,7 +31,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aL-9E-LYP">
-                        <rect key="frame" x="8" y="171.5" width="144" height="20.5"/>
+                        <rect key="frame" x="16" y="163.5" width="128" height="20.5"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="e3m-sO-Qm2"/>
                         </constraints>
@@ -44,9 +44,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="cK6-gf-XjE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1j5-7i-anH"/>
-                <constraint firstAttribute="bottom" secondItem="8aL-9E-LYP" secondAttribute="bottom" constant="8" id="2xj-Ec-JBL"/>
-                <constraint firstItem="8aL-9E-LYP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Crd-2D-atX"/>
-                <constraint firstAttribute="trailing" secondItem="8aL-9E-LYP" secondAttribute="trailing" constant="8" id="EFk-nd-fWJ"/>
+                <constraint firstAttribute="bottom" secondItem="8aL-9E-LYP" secondAttribute="bottom" constant="16" id="2xj-Ec-JBL"/>
+                <constraint firstItem="8aL-9E-LYP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="Crd-2D-atX"/>
+                <constraint firstAttribute="trailing" secondItem="8aL-9E-LYP" secondAttribute="trailing" constant="16" id="EFk-nd-fWJ"/>
                 <constraint firstItem="ybA-v2-wvl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ILU-C1-zIf"/>
                 <constraint firstAttribute="trailing" secondItem="cK6-gf-XjE" secondAttribute="trailing" id="LGI-fe-28d"/>
                 <constraint firstAttribute="trailing" secondItem="ybA-v2-wvl" secondAttribute="trailing" id="QCB-dt-wpT"/>

@@ -35,16 +35,16 @@ class CharacterCatalogViewModel {
     private var currentPage: Int = -1
     private var currentName: String?
     
-    var isFirstLoad: Bool {
-        return currentPage == -1
-    }
-    
     var numberOfCharacters: Int {
         return characters.count
     }
     
     var title: String {
         return "Characters"
+    }
+    
+    var isFirstLoad: Bool {
+        return currentPage == -1
     }
     
     init(logic: CharacterCatalogLogic) {
@@ -74,6 +74,15 @@ class CharacterCatalogViewModel {
         return (indexPath.row < characters.count) ? characters[indexPath.item] : nil
     }
     
+    func viewModel(at indexPath: IndexPath) -> Any? {
+    
+        guard let character = character(at: indexPath) else {
+            return nil
+        }
+        
+        return CatalogItemCollectionViewCellDTO(character: character, favorited: logic.isFavorite(character: character))
+    }
+    
     func detailForCharacter(at indexPath: IndexPath) {
     
         guard let character = character(at: indexPath) else {
@@ -81,6 +90,32 @@ class CharacterCatalogViewModel {
         }
         
         logic.showDetail(of: character)
+    }
+    
+    func optionsForCharacter(at indexPath: IndexPath, completion: (() -> Void)? = nil) {
+        
+        guard let character = character(at: indexPath) else {
+            return
+        }
+        
+        logic.showOptionsFor(character: character) { (result) in
+            
+            guard case let .success(option) = result else {
+                return
+            }
+            
+            switch option {
+            case .favorite:
+                self.logic.favorite(character, completion: { _ in
+                    completion?()
+                })
+            case .unfavorite:
+                self.logic.unfavorite(character, completion: { _ in
+                    completion?()
+                })
+                break
+            }
+        }
     }
     
     func searchCharacter(with name: String) {

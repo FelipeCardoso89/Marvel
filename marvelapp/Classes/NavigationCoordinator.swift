@@ -13,6 +13,8 @@ class NavigationCoordinator: Coordinatable {
     var viewController = UINavigationController()
 }
 
+extension NavigationCoordinator: AlertControllerPresentable {}
+
 extension Coordinatable where Self: NavigationCoordinator {
     
     var rootViewController: UIViewController {
