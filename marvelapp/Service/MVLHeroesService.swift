@@ -38,77 +38,56 @@ class MVLCharacterService {
 
     func character(_ name: String?, page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {
         
-        print("Name: \(name ?? "NO NAME")")
+        let timestamp = "\(Date().timeIntervalSince1970)"
+        let hash = "\(timestamp)\(privateKey)\(apiKey)".md5
 
-        guard let path = Bundle.main.path(forResource: "CharacterMock", ofType: "json") else {
-            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
+        var components = URLComponents(url: baseURL.appendingPathComponent("v1/public/characters"), resolvingAgainstBaseURL: true)
+
+        var customQueryItems = [URLQueryItem]()
+
+        if let name = name {
+            customQueryItems.append(URLQueryItem(name: "name", value: name))
+        }
+
+        if page > 0 {
+             customQueryItems.append(URLQueryItem(name: "offset", value: "\(page * limit)"))
+        }
+
+        let commonQueryItems = [
+            URLQueryItem(name: "ts", value: timestamp),
+            URLQueryItem(name: "hash", value: hash),
+            URLQueryItem(name: "apikey", value: apiKey)
+        ]
+
+        components?.queryItems = commonQueryItems + customQueryItems
+
+        guard let url = components?.url else {
+            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "Can't build url"])))
             return
         }
 
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else {
-            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
+        let task = sharedSession.dataTask(with: url) { (data, response, error) in
+
+            if let error = error {
+                completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": error.localizedDescription])))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "Can't get data"])))
+                return
+            }
+
+            guard let characterData = try? JSONDecoder().decode(CharacterDataWrapper.self, from: data) else {
+                completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "Can't parse json"])))
+                return
+            }
+
+            completion(.success(characterData))
             return
         }
 
-        guard let response: CharacterDataWrapper = try? JSONDecoder().decode(CharacterDataWrapper.self, from: data) else {
-            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
-            return
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            completion(.success(response))
-        }
-        
-//        let timestamp = "\(Date().timeIntervalSince1970)"
-//        let hash = "\(timestamp)\(privateKey)\(apiKey)".md5
-//
-//        var components = URLComponents(url: baseURL.appendingPathComponent("v1/public/characters"), resolvingAgainstBaseURL: true)
-//
-//        var customQueryItems = [URLQueryItem]()
-//
-//        if let name = name {
-//            customQueryItems.append(URLQueryItem(name: "name", value: name))
-//        }
-//
-//        if page > 0 {
-//             customQueryItems.append(URLQueryItem(name: "offset", value: "\(page * limit)"))
-//        }
-//
-//        let commonQueryItems = [
-//            URLQueryItem(name: "ts", value: timestamp),
-//            URLQueryItem(name: "hash", value: hash),
-//            URLQueryItem(name: "apikey", value: apiKey)
-//        ]
-//
-//        components?.queryItems = commonQueryItems + customQueryItems
-//
-//        guard let url = components?.url else {
-//            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "Can't build url"])))
-//            return
-//        }
-//
-//        let task = sharedSession.dataTask(with: url) { (data, response, error) in
-//
-//            if let error = error {
-//                completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": error.localizedDescription])))
-//                return
-//            }
-//
-//            guard let data = data else {
-//                completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "Bla"])))
-//                return
-//            }
-//
-//            guard let characterData = try? JSONDecoder().decode(CharacterDataWrapper.self, from: data) else {
-//                completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "Bla"])))
-//                return
-//            }
-//
-//            completion(.success(characterData))
-//            return
-//        }
-//
-//        task.resume()
+        task.resume()
     }
     
     func isFavorited(_ character: Character) -> Bool {
