@@ -12,7 +12,9 @@ The data flow starts from the user interface on the screen to the ViewModel then
 
 ## Features
 
-This project takes advantage of `Protocols` and `Generics` to reuse views and cells. Using this swift features we avoid typos when using `reuseIdentifiers`. 
+This project takes advantage of `Protocols` and `Generics` to reuse views and cells. Using this swift features we avoid typos when using `reuseIdentifiers`.
+
+On Swift 5 I can use `Result` type to handle network responses better. 
 
 ## Pods
 #### pod 'PureLayout'
