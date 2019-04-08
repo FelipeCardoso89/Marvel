@@ -15,8 +15,11 @@ The data flow starts from the user interface on the screen to the ViewModel then
 This project takes advantage of `Protocols` and `Generics` to reuse views and cells. Using this swift features we avoid typos when using `reuseIdentifiers`. 
 
 ### Pods
-pod 'PureLayout' - Less verbose Auto-Layout constraints: `myView.autoPinEdgesToSuperviewEdges()`.
-pod 'CCBottomRefreshControl' - Add a activity indicator at the bottom of UIScrollView (UITableView, UICollectionView). Because [ANGTFT](https://www.youtube.com/watch?v=pzZOc05BFHE), I'm kidding, I have a [lib](https://github.com/FelipeCardoso89/UILoadControl) that do that but its not on swift 5 yet and I had no time to implement it again at this moment. 
+## pod 'PureLayout'
+Less verbose Auto-Layout constraints: `myView.autoPinEdgesToSuperviewEdges()`.
+
+## pod 'CCBottomRefreshControl'
+Add a activity indicator at the bottom of UIScrollView (UITableView, UICollectionView). Because [ANGTFT](https://www.youtube.com/watch?v=pzZOc05BFHE), I'm kidding, I have a [lib](https://github.com/FelipeCardoso89/UILoadControl) that do that but its not on swift 5 yet and I had no time to implement it again at this moment. 
 
 ### How to install
 
