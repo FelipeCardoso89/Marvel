@@ -43,7 +43,7 @@ class CharacterDetailViewModel {
         switch rows {
         case _ where rows < 2:
             return 1
-        case _ where rows == detailSection.numberOfPreviewItems:
+        case _ where rows <= detailSection.numberOfPreviewItems:
             return rows
         case _ where ((rows > numberOfPreviewItems) && detailSection.preview):
             return numberOfPreviewItems + 1
@@ -111,6 +111,11 @@ class CharacterDetailViewModel {
         }
         
         sections.updateValue(section, forKey: key)
+        
+        guard section.viewModels.count > section.numberOfPreviewItems else {
+            return []
+        }
+        
         let numberOfIndexes = Array(section.numberOfPreviewItems..<section.viewModels.count)
         return numberOfIndexes.map({ IndexPath(row: $0, section: indexPath.section) })
     }
