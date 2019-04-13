@@ -155,11 +155,15 @@ extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
             self.loadingViewController.remove()
             self.catalogCollectionView.bottomRefreshControl?.endRefreshing()
             self.catalogCollectionView.reloadData()
+            
+            if self.viewModel.numberOfCharacters == 0 {
+                self.viewModel.showEmptyCharacterAlert()
+            }
         }
     }
     
     func didFinsihLoad(with error: NSError) {
-        print("\(error.localizedDescription)")
+        self.viewModel.showAlert(with: error)
     }
 }
 

@@ -553,7 +553,6 @@
 				3E1EB16122570330000A8E49 /* Sources */,
 				3E1EB16222570330000A8E49 /* Frameworks */,
 				3E1EB16322570330000A8E49 /* Resources */,
-				9F8BE64BA39DB38D21AE6E3B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -732,30 +731,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-marvelappTests/Pods-marvelappTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9F8BE64BA39DB38D21AE6E3B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-marvelappUITests/Pods-marvelappUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-marvelappUITests/Pods-marvelappUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6167164721D5C4BE815423D /* [CP] Embed Pods Frameworks */ = {

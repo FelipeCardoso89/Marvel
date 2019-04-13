@@ -69,6 +69,10 @@ class CharacterCatalogLogic {
         router?.showAlert(with: title, message: message, retry: retry, onDismiss: onDismiss)
     }
     
+    func showError(error: NSError, retry: (()->Void)?, onDismiss: (()->Void)?) {
+        showAlert(with: "Error", message: error.localizedDescription, retry: retry, onDismiss: onDismiss)
+    }
+    
 }
 
 extension CharacterCatalogLogic {

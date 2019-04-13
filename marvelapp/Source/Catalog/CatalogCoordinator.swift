@@ -67,4 +67,5 @@ extension CatalogCoordinator: CharacterCatalogRouterable {
 
 extension CatalogCoordinator: CharacterDetailRouterable {
     
+    
 }

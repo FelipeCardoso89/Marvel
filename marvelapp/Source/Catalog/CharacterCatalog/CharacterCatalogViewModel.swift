@@ -123,6 +123,23 @@ class CharacterCatalogViewModel {
         loadCharacters(name: name, at: 0)
     }
     
+    func showEmptyCharacterAlert() {
+        self.logic.showAlert(
+            with: "Empty",
+            message: "No character found!",
+            retry: nil,
+            onDismiss: nil
+        )
+    }
+    
+    func showAlert(with error: NSError) {
+        self.logic.showError(
+            error: error,
+            retry: { self.loadCharacters(name: self.currentName, at: self.currentPage) },
+            onDismiss: nil
+        )
+    }
+    
     private func loadCharacters(name: String? = nil, at page: Int) {
         
         guard currentPage != page else {
