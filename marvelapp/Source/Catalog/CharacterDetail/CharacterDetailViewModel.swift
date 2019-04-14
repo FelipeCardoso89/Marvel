@@ -131,11 +131,26 @@ class CharacterDetailViewModel {
             switch option {
             case .favorite:
                 self.logic.favorite(self.character, completion: { _ in
+                    
+                    let dto = CharacterDetailHeaderTableViewCellDTO(
+                        character: self.character,
+                        favorited: self.logic.isFavorite(character: self.character)
+                    )
+                    
+                    self.sections.updateValue(.main(viewModels: [dto], preview: true), forKey: NSNumber(value: 0))
                     completion?()
                 })
                 
             case .unfavorite:
                 self.logic.unfavorite(self.character, completion: { _ in
+                    
+                    let dto = CharacterDetailHeaderTableViewCellDTO(
+                        character: self.character,
+                        favorited: self.logic.isFavorite(character: self.character)
+                    )
+                    
+                    self.sections.updateValue(.main(viewModels: [dto], preview: true), forKey: NSNumber(value: 0))
+                    
                     completion?()
                 })
                 break

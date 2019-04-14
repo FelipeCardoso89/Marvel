@@ -64,7 +64,6 @@ class CharacterDetailViewController: ViewController<UIView> {
     
     @objc func didPressOptionsButton() {
         viewModel.showOptions {
-            self.viewModel.loadCharacterData()
             self.characterDetailTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         }
     }
