@@ -120,6 +120,13 @@ extension CharacterDetailViewController: UITableViewDataSource, UITableViewDeleg
             
             tableView.endUpdates()
             
+            tableView.beginUpdates()
+            tableView.reloadRows(
+                at: [viewModel.indexPathForAction(at: indexPath)],
+                with: animation
+            )
+            tableView.endUpdates()
+            
         default:
             break
         }

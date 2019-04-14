@@ -120,6 +120,17 @@ class CharacterDetailViewModel {
         return numberOfIndexes.map({ IndexPath(row: $0, section: indexPath.section) })
     }
     
+    func indexPathForAction(at indexPath: IndexPath) -> IndexPath {
+        
+        let section = characterDetailSection(at: indexPath)
+        
+        if section.preview {
+            return IndexPath(row: section.numberOfPreviewItems, section: indexPath.section)
+        } else {
+           return IndexPath(row: section.numberOfRows, section: indexPath.section)
+        }
+    }
+    
     func showOptions(completion: (() -> Void)? = nil) {
         
         logic.showOptionsFor(character: character) { (result) in
