@@ -16,6 +16,21 @@ All the `UIKit` stuff are only at `Coordinators` and `UIViewControllers`. The ap
 
 The data flow starts from the user interface on the screen to the ViewModel then to the Logic class and then to the router's class when we need to go to another screen. The service layer is injected into the Logic, so it's easy to replace  network calls with mocked jsons.
 
+Example:
+```Swift
+class CharacterCatalogLogic {
+//...
+    convenience init(router: CharacterCatalogRouterable?) {
+        if isLaunchedWith(LaunchArguments.mockNetworkResponses) {
+            self.init(service: MVLHeroesMockService.shared, router: router)
+        } else {
+            self.init(service: MarvelAPI.shared.characterService, router: router)
+        }
+    }
+//...
+}
+```
+
 ## Features
 
 * ✅ **No Storyboard:** View develop ~80% in code using ```PureLayout```, with no broken contraints. Cell and custom views are created using XIBs.
