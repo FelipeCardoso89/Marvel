@@ -9,7 +9,7 @@
 import UIKit
 
 class CharacterContentTableViewCell: UITableViewCell {
-    @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet weak var contentImageView: NetworkImageLoader!
     @IBOutlet weak var titleLabel: UILabel!
 }
 

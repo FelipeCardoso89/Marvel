@@ -10,6 +10,7 @@ import Foundation
 
 protocol CharacterCatalogViewModelDelegate: class {
     func willStartLoad()
+    func willFinsihLoad()
     func didFinsihLoad()
     func didFinsihLoad(with error: NSError)
 }
@@ -23,15 +24,10 @@ class CharacterCatalogViewModel {
     private var characters = [Character]()
     
     private var characterData: CharacterDataWrapper? {
-        didSet (newValue) {
-            if currentPage >= 1 {
-                characters.append(contentsOf: characterData?.data?.results ?? [])
-            } else {
-                characters = characterData?.data?.results ?? []
-            }
-        }
+        didSet { self.didUpdateCharacterData() }
     }
     
+    private let itemsPerPage: Int = 20
     private var currentPage: Int = -1
     private var currentName: String?
     
@@ -45,6 +41,10 @@ class CharacterCatalogViewModel {
     
     var isFirstLoad: Bool {
         return currentPage == -1
+    }
+    
+    var isSearching: Bool {
+        return !(currentName?.isEmpty ?? true)
     }
     
     init(logic: CharacterCatalogLogic) {
@@ -62,6 +62,11 @@ class CharacterCatalogViewModel {
     
     func loadNextPage() {
         loadCharacters(name: currentName, at: (currentPage + 1))
+    }
+    
+    func reload() {
+        reset()
+        loadCharacters()
     }
     
     func reset() {
@@ -119,43 +124,57 @@ class CharacterCatalogViewModel {
     }
     
     func searchCharacter(with name: String) {
-        reset()
-        loadCharacters(name: name, at: 0)
+        currentName = name
+        loadCharacters(name: currentName, at: 0)
     }
     
-    func showEmptyCharacterAlert() {
-        self.logic.showAlert(
-            with: "Empty",
-            message: "No character found!",
-            retry: nil,
-            onDismiss: nil
-        )
-    }
-    
-    func showAlert(with error: NSError) {
-        self.logic.showError(
-            error: error,
-            retry: { self.loadCharacters(name: self.currentName, at: self.currentPage) },
-            onDismiss: nil
-        )
+    private func didUpdateCharacterData() {
+        
+        if currentPage >= 1 {
+            characters.append(contentsOf: characterData?.data?.results ?? [])
+        } else {
+            characters = characterData?.data?.results ?? []
+        }
+        
     }
     
     private func loadCharacters(name: String? = nil, at page: Int) {
         
-        guard currentPage != page else {
+        guard self.currentPage != page else {
             return
         }
         
         delegate?.willStartLoad()
         logic.character(with: name, at: page) { (result) in
+            
+            self.delegate?.willFinsihLoad()
+            
             switch result {
             case let .success(characterData):
                 self.currentPage = page
                 self.currentName = name
                 self.characterData = characterData
-                self.delegate?.didFinsihLoad()
+                
+                if (self.characters.isEmpty && (self.currentPage == 0)) {
+                    self.logic.showAlert(
+                        with: "Not Found",
+                        message: "Can't find any character with name: \(name ?? "NO NAME").",
+                        retry: nil,
+                        onDismiss: nil
+                    )
+                } else {
+                    self.delegate?.didFinsihLoad()
+                }
+                
             case let .failure(error):
-                self.delegate?.didFinsihLoad(with: error)
+                
+                if self.isFirstLoad {
+                    self.delegate?.didFinsihLoad(with: error)
+                } else {
+                    DispatchQueue.main.async {
+                        self.logic.showError(error: error, retry: nil, onDismiss: nil)
+                    }
+                }
             }
         }
     }

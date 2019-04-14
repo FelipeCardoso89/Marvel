@@ -15,7 +15,7 @@ protocol CatalogItemCollectionViewCellDelegate: class {
 
 class CatalogItemCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var itemImageView: UIImageView!
+    @IBOutlet weak var itemImageView: NetworkImageLoader!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     

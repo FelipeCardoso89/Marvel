@@ -12,6 +12,15 @@ import CCBottomRefreshControl
 
 class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    private lazy var resetButton: UIBarButtonItem = {
+        return UIBarButtonItem(
+            title: "Reset",
+            style: .done,
+            target: self,
+            action: #selector(reloadData)
+        )
+    }()
+    
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.obscuresBackgroundDuringPresentation = false
@@ -22,6 +31,10 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     
     private lazy var loadingViewController: LoadingViewController = {
         return LoadingViewController.loadXib(from: nil)
+    }()
+    
+    private lazy var errorViewController: ErrorViewController = {
+        return ErrorViewController.loadXib(from: nil)
     }()
     
     private lazy var bottomRefreshControl: UIRefreshControl = {
@@ -61,7 +74,11 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         super.viewDidLoad()
         viewModel.delegate = self
         title = viewModel.title
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
         registerCells()
     }
     
@@ -111,12 +128,42 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         viewModel.detailForCharacter(at: indexPath)
     }
     
+    @objc func reloadData() {
+        reset()
+        viewModel.reload()
+    }
+    
     @objc func loadNextPage() {
         viewModel.loadNextPage()
     }
 }
 
 private extension CharacterCatalogViewController {
+    
+    func showLoading() {
+        add(loadingViewController)
+        loadingViewController.view.autoPinEdgesToSuperviewEdges()
+    }
+    
+    func stopLoading() {
+        loadingViewController.remove()
+        catalogCollectionView.bottomRefreshControl?.endRefreshing()
+    }
+    
+    func showError(_ viewModel: ErrorViewModel) {
+        add(errorViewController)
+        errorViewController.configure(with: viewModel)
+        errorViewController.view.autoPinEdgesToSuperviewEdges()
+    }
+    
+    func removeError() {
+        errorViewController.remove()
+    }
+    
+    func reset() {
+        viewModel.reset()
+        catalogCollectionView.reloadData()
+    }
     
     func table(_ collectionView: UICollectionView, catalogCellAt indexPath: IndexPath, with viewModel: CatalogItemCollectionViewCellDTO?) -> CatalogItemCollectionViewCell {
         let cell = collectionView.dequeueReusableCell(CatalogItemCollectionViewCell.self, for: indexPath)
@@ -146,52 +193,53 @@ extension CharacterCatalogViewController: CharacterCatalogViewModelDelegate {
             return
         }
         
-        add(loadingViewController)
-        loadingViewController.view.autoPinEdgesToSuperviewEdges()
+        resetButton.isEnabled = false
+        removeError()
+        showLoading()
+    }
+    
+    func willFinsihLoad() {
+        DispatchQueue.main.async {
+            
+            if self.viewModel.isSearching {
+                self.resetButton.isEnabled = true
+                self.navigationItem.rightBarButtonItem = self.resetButton
+            } else {
+                self.resetButton.isEnabled = false
+                self.navigationItem.rightBarButtonItem = nil
+            }
+            
+            self.stopLoading()
+        }
     }
     
     func didFinsihLoad() {
         DispatchQueue.main.async {
-            self.loadingViewController.remove()
-            self.catalogCollectionView.bottomRefreshControl?.endRefreshing()
             self.catalogCollectionView.reloadData()
-            
-            if self.viewModel.numberOfCharacters == 0 {
-                self.viewModel.showEmptyCharacterAlert()
-            }
         }
     }
     
     func didFinsihLoad(with error: NSError) {
-        self.viewModel.showAlert(with: error)
+        
+        let uiChanges: (() -> Void) = {
+            self.showError(ErrorViewModel(error: error, actionTitle: "Tentar novamente") {
+                self.viewModel.reload()
+            })
+        }
+        
+        DispatchQueue.main.async(execute: uiChanges)
     }
 }
 
 extension CharacterCatalogViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    
-        viewModel.reset()
-        
-        DispatchQueue.main.async {
-            self.searchController.dismiss(animated: true, completion: nil)
-            self.catalogCollectionView.reloadData()
+
+        guard let text = searchBar.text else {
+            return
         }
         
-        if let text = searchBar.text {
-            viewModel.searchCharacter(with: text)
-        }
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
-        viewModel.reset()
-        
-        DispatchQueue.main.async {
-            self.searchController.dismiss(animated: true, completion: nil)
-            self.catalogCollectionView.reloadData()
-        }
-        
-        viewModel.loadCharacters()
+        reset()
+        viewModel.searchCharacter(with: text)
     }
 }

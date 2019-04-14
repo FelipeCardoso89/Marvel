@@ -9,7 +9,7 @@ import UIKit
 
 class CharacterDetailHeaderTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var headerImageView: UIImageView!
+    @IBOutlet weak var headerImageView: NetworkImageLoader!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!

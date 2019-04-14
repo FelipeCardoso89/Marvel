@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let imageCache = NSCache<NSString, UIImage>()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

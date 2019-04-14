@@ -1,28 +1,26 @@
 //
-//  UIImageView+Extensions.swift
+//  NetworkImageLoader.swift
 //  marvelapp
 //
-//  Created by Felipe Antonio Cardoso on 06/04/19.
+//  Created by Felipe Antonio Cardoso on 13/04/19.
 //  Copyright © 2019 Felipe Antonio Cardoso. All rights reserved.
 //
 
-import Foundation
 import UIKit
-import PureLayout
 
-let imageCache = NSCache<NSString, UIImage>()
+class NetworkImageLoader: UIImageView {
 
-extension UIImageView {
+    var imageUrlString: String?
+    let imageCache = NSCache<NSString, UIImage>()
     
     func loadImage(from url: URL, completion: ((Error?)-> Void)? = nil) {
         
+        self.imageUrlString = url.absoluteString
         self.image = nil
         
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
-            DispatchQueue.main.async {
-                self.image = cachedImage
-                completion?(nil)
-            }
+            self.image = cachedImage
+            completion?(nil)
             return
         }
         
@@ -41,19 +39,20 @@ extension UIImageView {
             
             DispatchQueue.main.async {
                 
-                guard let downloadedIamge = UIImage(data: data) else {
+                guard let downloadedImage = UIImage(data: data) else {
                     completion?(NSError(domain: "", code: 000, userInfo: nil))
                     return
                 }
                 
-                imageCache.setObject(downloadedIamge, forKey: url.absoluteString as NSString)
+                if (self.imageUrlString?.elementsEqual(url.absoluteString) ?? false) {
+                    self.image = downloadedImage
+                }
                 
-                self.image = nil
-                self.image = downloadedIamge
+                self.imageCache.setObject(downloadedImage, forKey: url.absoluteString as NSString)
                 completion?(nil)
             }
             
-        }.resume()
+            }.resume()
     }
     
 }
