@@ -41,6 +41,7 @@ class CatalogItemCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupAccessibilityIdentifiers()
         gradientView.addGestureRecognizer(longPressGesture)
     }
     
@@ -48,6 +49,12 @@ class CatalogItemCollectionViewCell: UICollectionViewCell {
         super.draw(rect)
         setupGradient()
         setupCellLayout()
+    }
+    
+    private func setupAccessibilityIdentifiers() {
+        accessibilityIdentifier = "catalog_item_cell"
+        itemImageView.accessibilityIdentifier = "catalog_item_cell_image_view"
+        titleLabel.accessibilityIdentifier = "catalog_item_cell_title_label"
     }
     
     private func setupGradient() {

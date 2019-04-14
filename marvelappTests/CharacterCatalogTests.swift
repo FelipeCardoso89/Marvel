@@ -18,7 +18,6 @@ class CharacterCatalogTests: QuickSpec {
         var logic: CharacterCatalogLogic?
         var viewModel:  CharacterCatalogViewModel?
         
-        
         describe("character catalog components") {
             
             context("without load data", {
@@ -93,40 +92,4 @@ extension CharacterCatalogTests: CharacterCatalogRouterable {
     func detail(for character: Character) {}
     func showOptions(_ options: [CharacterOption], for character: Character, onSelectedOption: @escaping ((CharacterOption) -> Void)) {}
     func showAlert(with title: String, message: String, retry: (() -> Void)?, onDismiss: (() -> Void)?) {}
-}
-
-
-extension MVLHeroesMockService: CharacterCatalogServable {
-    
-    func character(_ name: String?, page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {
-
-        guard let path = Bundle(for: type(of: self)).path(forResource: "CharacterDataWrapper", ofType: "json") else {
-            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
-            return
-        }
-
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else {
-            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
-            return
-        }
-
-        guard let response: CharacterDataWrapper = try? JSONDecoder().decode(CharacterDataWrapper.self, from: data) else {
-            completion(.failure(NSError(domain: "", code: 000, userInfo: ["message": "bla"])))
-            return
-        }
-
-        completion(.success(response))
-    }
-
-    func isFavorited(_ character: Character) -> Bool {
-        return false
-    }
-
-    func favorite(_ character: Character) -> Bool {
-        return true
-    }
-
-    func unfavorite(_ character: Character) -> Bool {
-        return true
-    }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UITestHelper
 
 protocol CharacterCatalogRouterable: class {
     func detail(for character: Character)
@@ -33,7 +34,11 @@ class CharacterCatalogLogic {
     }
     
     convenience init(router: CharacterCatalogRouterable?) {
-        self.init(service: MarvelAPI.shared.characterService, router: router)
+        if isLaunchedWith(LaunchArguments.mockNetworkResponses) {
+            self.init(service: MVLHeroesMockService.shared, router: router)
+        } else {
+            self.init(service: MarvelAPI.shared.characterService, router: router)
+        }
     }
     
     func character(with name: String?, at page: Int, completion: @escaping CharacterDataWrapperCompletionResult) {

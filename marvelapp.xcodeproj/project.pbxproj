@@ -35,6 +35,13 @@
 		154245792262957000ABC910 /* ErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154245772262957000ABC910 /* ErrorViewController.xib */; };
 		1542457D2262976500ABC910 /* ErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1542457C2262976500ABC910 /* ErrorViewModel.swift */; };
 		1542457F2262AFAD00ABC910 /* NetworkImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1542457E2262AFAD00ABC910 /* NetworkImageLoader.swift */; };
+		15458BA22262DD7300B5BD74 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15458BA12262DD7300B5BD74 /* LaunchArguments.swift */; };
+		15458BA32262DD8E00B5BD74 /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15458BA12262DD7300B5BD74 /* LaunchArguments.swift */; };
+		15458BA42262DE6200B5BD74 /* MVLHeroesMockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156EA680225AE16400CC855D /* MVLHeroesMockService.swift */; };
+		15458BA82262E10600B5BD74 /* CharacterDataWrapper.json in Resources */ = {isa = PBXBuildFile; fileRef = 15CB8A272258304700FE6A29 /* CharacterDataWrapper.json */; };
+		15458BAC2262EE5200B5BD74 /* SingleCharacterDataWrapper.json in Resources */ = {isa = PBXBuildFile; fileRef = 15458BAB2262EE5200B5BD74 /* SingleCharacterDataWrapper.json */; };
+		15458BAE2262EF8100B5BD74 /* EmptyCharacterDataWrapper.json in Resources */ = {isa = PBXBuildFile; fileRef = 15458BAD2262EF8100B5BD74 /* EmptyCharacterDataWrapper.json */; };
+		15458BB022638C6800B5BD74 /* CommunUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15458BAF22638C6800B5BD74 /* CommunUITests.swift */; };
 		155A21DD2259962F006CF035 /* CharacterDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A21DC2259962F006CF035 /* CharacterDetailSection.swift */; };
 		155A21DF22599D79006CF035 /* ComicList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A21DE22599D79006CF035 /* ComicList.swift */; };
 		155A21E122599DC2006CF035 /* ComicSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155A21E022599DC2006CF035 /* ComicSummary.swift */; };
@@ -65,8 +72,6 @@
 		156EA67B225AC12600CC855D /* AlertControllerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156EA67A225AC12600CC855D /* AlertControllerPresentable.swift */; };
 		156EA67D225AE10A00CC855D /* CharacterDataWrapper.json in Resources */ = {isa = PBXBuildFile; fileRef = 15CB8A272258304700FE6A29 /* CharacterDataWrapper.json */; };
 		156EA67E225AE10A00CC855D /* CharacterDataWrapper.json in Resources */ = {isa = PBXBuildFile; fileRef = 15CB8A272258304700FE6A29 /* CharacterDataWrapper.json */; };
-		156EA681225AE16400CC855D /* MVLHeroesMockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156EA680225AE16400CC855D /* MVLHeroesMockService.swift */; };
-		156EA682225AE29500CC855D /* MVLHeroesMockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156EA680225AE16400CC855D /* MVLHeroesMockService.swift */; };
 		156EA684225AE31C00CC855D /* CharacterCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156EA683225AE31C00CC855D /* CharacterCatalogTests.swift */; };
 		15CB8A2A225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB8A29225838B100FE6A29 /* CatalogItemCollectionViewCellDTO.swift */; };
 		2A6FF86EFC81945DF825A0D4 /* Pods_marvelapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43389F0FA2A633DF0F76C8CF /* Pods_marvelapp.framework */; };
@@ -75,7 +80,7 @@
 		3E1EB14F22570326000A8E49 /* marvelapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB14D22570326000A8E49 /* marvelapp.xcdatamodeld */; };
 		3E1EB15122570330000A8E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E1EB15022570330000A8E49 /* Assets.xcassets */; };
 		3E1EB15422570330000A8E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E1EB15222570330000A8E49 /* LaunchScreen.storyboard */; };
-		3E1EB16A22570330000A8E49 /* marvelappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB16922570330000A8E49 /* marvelappUITests.swift */; };
+		3E1EB16A22570330000A8E49 /* CatalogUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB16922570330000A8E49 /* CatalogUITests.swift */; };
 		8A8A314C9B6CA5B10AF70FE2 /* Pods_marvelappUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D12CB378C177583C2E44D1E /* Pods_marvelappUITests.framework */; };
 		8EB1B944B338BA872792B1D6 /* Pods_marvelappTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792FBB3C7561EACEAA9E5A29 /* Pods_marvelappTests.framework */; };
 /* End PBXBuildFile section */
@@ -127,6 +132,10 @@
 		154245772262957000ABC910 /* ErrorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorViewController.xib; sourceTree = "<group>"; };
 		1542457C2262976500ABC910 /* ErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewModel.swift; sourceTree = "<group>"; };
 		1542457E2262AFAD00ABC910 /* NetworkImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageLoader.swift; sourceTree = "<group>"; };
+		15458BA12262DD7300B5BD74 /* LaunchArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
+		15458BAB2262EE5200B5BD74 /* SingleCharacterDataWrapper.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SingleCharacterDataWrapper.json; sourceTree = "<group>"; };
+		15458BAD2262EF8100B5BD74 /* EmptyCharacterDataWrapper.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EmptyCharacterDataWrapper.json; sourceTree = "<group>"; };
+		15458BAF22638C6800B5BD74 /* CommunUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunUITests.swift; sourceTree = "<group>"; };
 		155A21DC2259962F006CF035 /* CharacterDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailSection.swift; sourceTree = "<group>"; };
 		155A21DE22599D79006CF035 /* ComicList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicList.swift; sourceTree = "<group>"; };
 		155A21E022599DC2006CF035 /* ComicSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicSummary.swift; sourceTree = "<group>"; };
@@ -170,7 +179,7 @@
 		3E1EB15A22570330000A8E49 /* marvelappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = marvelappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1EB16022570330000A8E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E1EB16522570330000A8E49 /* marvelappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = marvelappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E1EB16922570330000A8E49 /* marvelappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = marvelappUITests.swift; sourceTree = "<group>"; };
+		3E1EB16922570330000A8E49 /* CatalogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogUITests.swift; sourceTree = "<group>"; };
 		3E1EB16B22570330000A8E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43389F0FA2A633DF0F76C8CF /* Pods_marvelapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_marvelapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51DCEC98336F6A3C491A5645 /* Pods-marvelappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvelappTests.release.xcconfig"; path = "Target Support Files/Pods-marvelappTests/Pods-marvelappTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -336,6 +345,34 @@
 			path = ErrorViewController;
 			sourceTree = "<group>";
 		};
+		15458BA02262DD2E00B5BD74 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				15458BA12262DD7300B5BD74 /* LaunchArguments.swift */,
+				15458BAA2262E21200B5BD74 /* Files */,
+				15458BA92262E20800B5BD74 /* Services */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		15458BA92262E20800B5BD74 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				156EA680225AE16400CC855D /* MVLHeroesMockService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		15458BAA2262E21200B5BD74 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				15CB8A272258304700FE6A29 /* CharacterDataWrapper.json */,
+				15458BAB2262EE5200B5BD74 /* SingleCharacterDataWrapper.json */,
+				15458BAD2262EF8100B5BD74 /* EmptyCharacterDataWrapper.json */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
 		155A21D5225994DC006CF035 /* CharacterDetailHeaderCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,22 +455,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		156EA67C225AE0EE00CC855D /* MockFiles */ = {
-			isa = PBXGroup;
-			children = (
-				15CB8A272258304700FE6A29 /* CharacterDataWrapper.json */,
-			);
-			path = MockFiles;
-			sourceTree = "<group>";
-		};
-		156EA67F225AE13500CC855D /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				156EA680225AE16400CC855D /* MVLHeroesMockService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		2CC8FFDF25881DB79BD7295B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +502,7 @@
 				152375362257F3160049E36C /* Service */,
 				152375122257E3DE0049E36C /* Source */,
 				155A221C225AB10A006CF035 /* Utils */,
+				15458BA02262DD2E00B5BD74 /* Mocks */,
 				3E1EB14A22570326000A8E49 /* Main.storyboard */,
 				3E1EB15022570330000A8E49 /* Assets.xcassets */,
 				3E1EB15222570330000A8E49 /* LaunchScreen.storyboard */,
@@ -493,8 +515,6 @@
 		3E1EB15D22570330000A8E49 /* marvelappTests */ = {
 			isa = PBXGroup;
 			children = (
-				156EA67F225AE13500CC855D /* Service */,
-				156EA67C225AE0EE00CC855D /* MockFiles */,
 				156EA683225AE31C00CC855D /* CharacterCatalogTests.swift */,
 				3E1EB16022570330000A8E49 /* Info.plist */,
 			);
@@ -504,7 +524,8 @@
 		3E1EB16822570330000A8E49 /* marvelappUITests */ = {
 			isa = PBXGroup;
 			children = (
-				3E1EB16922570330000A8E49 /* marvelappUITests.swift */,
+				15458BAF22638C6800B5BD74 /* CommunUITests.swift */,
+				3E1EB16922570330000A8E49 /* CatalogUITests.swift */,
 				3E1EB16B22570330000A8E49 /* Info.plist */,
 			);
 			path = marvelappUITests;
@@ -570,6 +591,7 @@
 				3E1EB16122570330000A8E49 /* Sources */,
 				3E1EB16222570330000A8E49 /* Frameworks */,
 				3E1EB16322570330000A8E49 /* Resources */,
+				3C457F280BD7FAADCA28A8FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -633,10 +655,13 @@
 				155A220E225A5976006CF035 /* ActionTableViewCell.xib in Resources */,
 				15237542225807E20049E36C /* CatalogItemCollectionViewCell.xib in Resources */,
 				154245792262957000ABC910 /* ErrorViewController.xib in Resources */,
+				15458BAE2262EF8100B5BD74 /* EmptyCharacterDataWrapper.json in Resources */,
+				15458BA82262E10600B5BD74 /* CharacterDataWrapper.json in Resources */,
 				155A2221225AB136006CF035 /* LoadingViewController.xib in Resources */,
 				155A21FC2259B068006CF035 /* CharacterDetailHeaderTableViewCell.xib in Resources */,
 				155A2212225A5985006CF035 /* MessageTableViewCell.xib in Resources */,
 				3E1EB15122570330000A8E49 /* Assets.xcassets in Resources */,
+				15458BAC2262EE5200B5BD74 /* SingleCharacterDataWrapper.json in Resources */,
 				155A22062259C06B006CF035 /* CharacterContentTableViewCell.xib in Resources */,
 				3E1EB14C22570326000A8E49 /* Main.storyboard in Resources */,
 			);
@@ -705,6 +730,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3C457F280BD7FAADCA28A8FF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-marvelappUITests/Pods-marvelappUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CCBottomRefreshControl/CCBottomRefreshControl.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/UITestHelper/UITestHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CCBottomRefreshControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITestHelper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-marvelappUITests/Pods-marvelappUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		58B74A961CF4028E33E15038 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -762,6 +817,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-marvelapp/Pods-marvelapp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CCBottomRefreshControl/CCBottomRefreshControl.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/UITestHelper-App/UITestHelper.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -769,6 +825,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CCBottomRefreshControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITestHelper.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -789,6 +846,7 @@
 				155A21FD2259B068006CF035 /* CharacterDetailHeaderTableViewCell.swift in Sources */,
 				1523751D2257E53C0049E36C /* Reusable.swift in Sources */,
 				1523754C225823A60049E36C /* CharacterDataContainer.swift in Sources */,
+				15458BA42262DE6200B5BD74 /* MVLHeroesMockService.swift in Sources */,
 				155A21E122599DC2006CF035 /* ComicSummary.swift in Sources */,
 				155A221B225AA5C7006CF035 /* md5.swift in Sources */,
 				155A2220225AB136006CF035 /* LoadingViewController.swift in Sources */,
@@ -810,6 +868,7 @@
 				1520FE392259873A00699600 /* CharacterDetailViewModel.swift in Sources */,
 				1523754522581F070049E36C /* Character.swift in Sources */,
 				152375192257E4730049E36C /* Coordinatable.swift in Sources */,
+				15458BA22262DD7300B5BD74 /* LaunchArguments.swift in Sources */,
 				1523751B2257E4AE0049E36C /* Coordinator.swift in Sources */,
 				155A2223225AB1A7006CF035 /* UIViewController+Extensions.swift in Sources */,
 				155A22012259B1B3006CF035 /* ViewConfigurable.swift in Sources */,
@@ -842,7 +901,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				156EA684225AE31C00CC855D /* CharacterCatalogTests.swift in Sources */,
-				156EA681225AE16400CC855D /* MVLHeroesMockService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,8 +908,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E1EB16A22570330000A8E49 /* marvelappUITests.swift in Sources */,
-				156EA682225AE29500CC855D /* MVLHeroesMockService.swift in Sources */,
+				3E1EB16A22570330000A8E49 /* CatalogUITests.swift in Sources */,
+				15458BB022638C6800B5BD74 /* CommunUITests.swift in Sources */,
+				15458BA32262DD8E00B5BD74 /* LaunchArguments.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

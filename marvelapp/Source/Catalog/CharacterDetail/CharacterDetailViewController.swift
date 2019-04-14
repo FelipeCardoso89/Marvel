@@ -18,6 +18,7 @@ class CharacterDetailViewController: ViewController<UIView> {
     
     private lazy var characterDetailTableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.accessibilityIdentifier = "character_detail_table_view"
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.dataSource = self

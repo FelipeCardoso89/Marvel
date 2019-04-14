@@ -36,7 +36,7 @@ extension CatalogCoordinator: CharacterCatalogRouterable {
                 preferredStyle: UIAlertController.Style.actionSheet
             )
             
-            options.forEach { (option) in
+            options.forEach { (option) in                
                 alertController.addAction(UIAlertAction(title: option.title, style: UIAlertAction.Style.default, handler: { (action) in
                     onSelectedOption(option)
                 }))

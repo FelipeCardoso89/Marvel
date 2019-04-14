@@ -19,6 +19,11 @@ class CharacterDetailHeaderTableViewCell: UITableViewCell {
     
     private var favorited: Bool = false
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        accessibilityIdentifier = "character_detail_header_cell"
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         setupGradient()

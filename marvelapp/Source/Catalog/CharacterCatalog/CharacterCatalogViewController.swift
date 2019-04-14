@@ -39,6 +39,7 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
     
     private lazy var bottomRefreshControl: UIRefreshControl = {
         let control = UIRefreshControl.newAutoLayout()
+        control.accessibilityIdentifier = "catalog_refresh_control_bottom"
         control.triggerVerticalOffset = 100
         control.addTarget(self, action: #selector(loadNextPage), for: .valueChanged)
         return control
@@ -53,6 +54,7 @@ class CharacterCatalogViewController: ViewController<UIView>, UICollectionViewDa
         layout.sectionInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
         
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.accessibilityIdentifier = "catalog_collection_view"
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
